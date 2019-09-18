@@ -1,0 +1,34 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: https://pisauce.duckdns.org:8123
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
+# Device tracker
+device_tracker:
+  - platform: synology_srm
+    host: 192.168.1.1
+    password: password
+    new_device_defaults:
+      track_new_devices: true
+
+# Enable wake on LAN
+wake_on_lan:
+switch:
+  - platform: wake_on_lan
+    mac_address: "30:9c:23:ea:ab:d0"
+    name: "Computer"
+    host: "192.168.1.31"
+    broadcast_address: "192.168.1.255"
