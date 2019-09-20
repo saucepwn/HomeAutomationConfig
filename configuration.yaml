@@ -24,6 +24,11 @@ device_tracker:
     new_device_defaults:
       track_new_devices: true
 
+# Workday tracker
+binary_sensor:
+  - platform: workday
+    country: US
+
 # Enable wake on LAN
 wake_on_lan:
 switch:
