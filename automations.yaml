@@ -63,7 +63,6 @@
   alias: Computer - turn on weekday evenings when I come home
   trigger:
   - entity_id: person.raspberrypisauce
-    for: 00:02:00
     from: away
     platform: state
     to: home
@@ -72,12 +71,68 @@
     entity_id: binary_sensor.workday_sensor
     state: 'on'
   - after: '16:00:00'
-    before: '23:59:59'
+    before: '22:30:00'
     condition: time
-  - condition: state
-    entity_id: switch.computer
-    state: 'off'
   action:
   - data:
       entity_id: switch.computer
     service: switch.turn_on
+- id: '1569304361436'
+  alias: Evening door unlock - Turn on lights
+  trigger:
+  - entity_id: lock.back_door_lock
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.front_door_lock
+    from: locked
+    platform: state
+    to: unlocked
+  condition:
+  - after: sunset
+    after_offset: -01:00:00
+    condition: sun
+  - after: '15:00:00'
+    before: '23:00:00'
+    condition: time
+  - condition: state
+    entity_id: light.living_room
+    state: 'off'
+  action:
+  - data:
+      brightness: 255
+      color_temp: 370
+      entity_id:
+      - light.living_room
+      - light.kitchen
+      - light.hallway
+      - light.dining_room
+    service: light.turn_on
+- id: '1569304972806'
+  alias: Night door unlock - turn on lights (after 11pm)
+  trigger:
+  - entity_id: lock.back_door_lock
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.front_door_lock
+    from: locked
+    platform: state
+    to: unlocked
+  condition:
+  - after: '23:00:01'
+    before: 04:00:00
+    condition: time
+  - condition: state
+    entity_id: light.living_room
+    state: 'off'
+  action:
+  - data:
+      brightness: 26
+      color_temp: 370
+      entity_id:
+      - light.living_room
+      - light.kitchen
+      - light.hallway
+      - light.dining_room
+    service: light.turn_on
