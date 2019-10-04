@@ -20,8 +20,7 @@ script: !include scripts.yaml
 device_tracker:
   - platform: synology_srm
     host: 192.168.1.1
-    password: password
-    consider_home: 0:05
+    password: !secret synology_password
     new_device_defaults:
       track_new_devices: true
       hide_if_away: false
@@ -50,9 +49,9 @@ remote:
 notify:
   - platform: html5
     name: android_push
-    vapid_pub_key: BA4FSvwcgEoP0-_nhINEgg-_1Vlox9KDZKSLiecY5AVG3cXDWWndvqAA4KhczHNSVjic-sUSmxoOEt8W-tyMVXU
-    vapid_prv_key: XpHcNcAYiIPUph_9HS2sF1HhoZ8mtB8cvxjjd7u2xgo
-    vapid_email: RPG405@gmail.com
+    vapid_pub_key: !secret vapid_pub_key
+    vapid_prv_key: !secret vapid_prv_key
+    vapid_email: !secret vapid_email
     
 history:
   exclude:
