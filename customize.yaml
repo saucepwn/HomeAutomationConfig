@@ -6,3 +6,5 @@ light.discoagroupeven_2:
   hidden: true
 light.discoagroupodd:
   hidden: true
+binary_sensor.garrett_padera_s_pixel_perfect_presence:
+  hidden: true

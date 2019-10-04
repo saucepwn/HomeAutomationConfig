@@ -21,8 +21,10 @@ device_tracker:
   - platform: synology_srm
     host: 192.168.1.1
     password: password
+    consider_home: 0:05
     new_device_defaults:
       track_new_devices: true
+      hide_if_away: false
 
 # Workday tracker
 binary_sensor:
@@ -42,3 +44,52 @@ switch:
 remote:
   - platform: harmony
     name: Living Room
+    host: 192.168.1.32
+    
+# Android Push Notifications
+notify:
+  - platform: html5
+    name: android_push
+    vapid_pub_key: BA4FSvwcgEoP0-_nhINEgg-_1Vlox9KDZKSLiecY5AVG3cXDWWndvqAA4KhczHNSVjic-sUSmxoOEt8W-tyMVXU
+    vapid_prv_key: XpHcNcAYiIPUph_9HS2sF1HhoZ8mtB8cvxjjd7u2xgo
+    vapid_email: RPG405@gmail.com
+    
+history:
+  exclude:
+    domains:
+      - automation
+      - media_player
+    entities:
+      - binary_sensor.garrett_padera_s_pixel_perfect_presence
+      - binary_sensor.updater
+      - light.common_areas_bedroom
+      - light.dining_room_ceiling
+      - light.discoagroup
+      - light.discoagroupeven
+      - light.discoagroupeven_2
+      - light.discoagroupodd
+      - light.guest_bedroom_1
+      - light.guest_bedroom_2
+      - light.guest_bedroom_3
+      - light.guest_bedroom_4
+      - light.hallway_1
+      - light.hallway_2
+      - light.kitchen_1
+      - light.kitchen_2
+      - light.living_room_ceiling_1
+      - light.living_room_ceiling_2
+      - light.living_room_ceiling_3
+      - light.living_room_ceiling_4
+      - light.living_room_ceiling_5
+      - light.living_room_ceiling_6
+      - light.master_bedroom_1
+      - light.master_bedroom_2
+      - light.master_bedroom_3
+      - light.master_bedroom_4
+      - light.master_bedroom_left
+      - light.master_bedroom_right
+      - light.outside_front_door
+      - light.outside_summit
+      - light.under_cabinet_sink
+      - light.under_cabinet_sink_2
+      - light.under_cabinet_stove

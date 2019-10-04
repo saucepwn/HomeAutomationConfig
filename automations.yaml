@@ -63,7 +63,6 @@
   alias: Computer - turn on weekday evenings when I come home
   trigger:
   - entity_id: person.raspberrypisauce
-    from: away
     platform: state
     to: home
   condition:
@@ -136,3 +135,21 @@
       - light.hallway
       - light.dining_room
     service: light.turn_on
+- id: '1569996471447'
+  alias: Shades - Open at 9:30am if I'm away
+  trigger:
+  - at: 09:30:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: cover.serena_r_roller_shade
+    state: closed
+  - condition: state
+    entity_id: person.raspberrypisauce
+    state: Away
+  action:
+  - data:
+      entity_id:
+      - cover.serena_r_roller_shade
+      - cover.serena_r_roller_shade_2
+    service: cover.open_cover
