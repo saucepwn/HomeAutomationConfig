@@ -99,14 +99,9 @@
     state: 'off'
   action:
   - data:
-      brightness: 255
-      color_temp: 370
-      entity_id:
-      - light.living_room
-      - light.kitchen
-      - light.hallway
-      - light.dining_room
-    service: light.turn_on
+      group_name: Common areas & bedroom
+      scene_name: Bright
+    service: hue.hue_activate_scene
 - id: '1569304972806'
   alias: Night door unlock - turn on lights (after 11pm)
   trigger:
@@ -120,21 +115,16 @@
     to: unlocked
   condition:
   - after: '23:00:01'
-    before: 04:00:00
+    before: 02:00:00
     condition: time
   - condition: state
     entity_id: light.living_room
     state: 'off'
   action:
   - data:
-      brightness: 26
-      color_temp: 370
-      entity_id:
-      - light.living_room
-      - light.kitchen
-      - light.hallway
-      - light.dining_room
-    service: light.turn_on
+      group_name: Common areas & bedroom
+      scene_name: Evening
+    service: hue.hue_activate_scene
 - id: '1569996471447'
   alias: Shades - Open at 9:30am if I'm away
   trigger:
@@ -153,3 +143,105 @@
       - cover.serena_r_roller_shade
       - cover.serena_r_roller_shade_2
     service: cover.open_cover
+- id: '1570381389931'
+  alias: Shades - Turn on cool lights if it's sunny when shades open
+  trigger:
+  - entity_id: cover.serena_r_roller_shade
+    platform: state
+    to: open
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: weather.home
+      state: sunny
+    - condition: state
+      entity_id: weather.home
+      state: partlycloudy
+    - condition: state
+      entity_id: weather.home
+      state: cloudy
+  - after: sunrise
+    after_offset: 01:00:00
+    condition: sun
+  - before: sunset
+    before_offset: -02:00:00
+    condition: sun
+  - condition: zone
+    entity_id: person.raspberrypisauce
+    zone: zone.home
+  action:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Afternoon
+    service: hue.hue_activate_scene
+- id: '1570429088603'
+  alias: Bedroom Fan - Low [72 - 75]
+  trigger:
+  - above: '71.9'
+    below: '75.1'
+    entity_id: sensor.motion_sensor_temperature_measurement_2
+    platform: numeric_state
+  - entity_id: person.raspberrypisauce
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition:
+  - above: '71.9'
+    below: '75.1'
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_temperature_measurement_2
+  - condition: zone
+    entity_id: person.raspberrypisauce
+    zone: zone.home
+  action:
+  - data:
+      entity_id: fan.bedroom_fan
+      speed: low
+    service: fan.turn_on
+- id: '1570429428645'
+  alias: Bedroom Fan - Medium [76 - 78]
+  trigger:
+  - above: '75.9'
+    below: '78.1'
+    entity_id: sensor.motion_sensor_temperature_measurement_2
+    platform: numeric_state
+  - entity_id: person.raspberrypisauce
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition:
+  - above: '75.9'
+    below: '78.1'
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_temperature_measurement_2
+  - condition: zone
+    entity_id: person.raspberrypisauce
+    zone: zone.home
+  action:
+  - data:
+      entity_id: fan.bedroom_fan
+      speed: medium
+    service: fan.turn_on
+- id: '1570430068737'
+  alias: Bedroom Fan - High [79+)
+  trigger:
+  - above: '78.9'
+    entity_id: binary_sensor.motion_sensor_motion_2
+    platform: numeric_state
+  - entity_id: person.raspberrypisauce
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition:
+  - above: '78.9'
+    condition: numeric_state
+    entity_id: sensor.motion_sensor_temperature_measurement_2
+  - condition: zone
+    entity_id: person.raspberrypisauce
+    zone: zone.home
+  action:
+  - data:
+      entity_id: fan.bedroom_fan
+      speed: medium
+    service: fan.turn_on
