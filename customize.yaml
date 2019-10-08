@@ -8,3 +8,6 @@ light.discoagroupodd:
   hidden: true
 binary_sensor.garrett_padera_s_pixel_perfect_presence:
   hidden: true
+sensor.condo_temperature:
+  icon: mdi:thermometer
+  device_class: temperature

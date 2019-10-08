@@ -53,6 +53,18 @@ notify:
     vapid_prv_key: !secret vapid_prv_key
     vapid_email: !secret vapid_email
     
+# Average condo temperature sensor
+sensor:
+  - platform: min_max
+    type: mean
+    name: Condo temperature
+    entity_ids:
+      - sensor.back_door_temperature_measurement
+      - sensor.front_door_temperature_measurement
+      - sensor.hallway_temperature_measurement
+      - sensor.motion_sensor_temperature_measurement
+      - sensor.motion_sensor_temperature_measurement_2
+    
 history:
   exclude:
     domains:
