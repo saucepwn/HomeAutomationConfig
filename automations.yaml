@@ -183,17 +183,16 @@
     entity_id: sensor.motion_sensor_temperature_measurement_2
     platform: numeric_state
   - entity_id: person.raspberrypisauce
-    event: enter
-    platform: zone
-    zone: zone.home
+    platform: state
+    to: home
   condition:
   - above: '71.9'
     below: '75.1'
     condition: numeric_state
     entity_id: sensor.motion_sensor_temperature_measurement_2
-  - condition: zone
+  - condition: state
     entity_id: person.raspberrypisauce
-    zone: zone.home
+    state: home
   action:
   - data:
       entity_id: fan.bedroom_fan
@@ -207,17 +206,16 @@
     entity_id: sensor.motion_sensor_temperature_measurement_2
     platform: numeric_state
   - entity_id: person.raspberrypisauce
-    event: enter
-    platform: zone
-    zone: zone.home
+    platform: state
+    to: home
   condition:
   - above: '75.9'
     below: '78.1'
     condition: numeric_state
     entity_id: sensor.motion_sensor_temperature_measurement_2
-  - condition: zone
+  - condition: state
     entity_id: person.raspberrypisauce
-    zone: zone.home
+    state: home
   action:
   - data:
       entity_id: fan.bedroom_fan
@@ -230,18 +228,17 @@
     entity_id: binary_sensor.motion_sensor_motion_2
     platform: numeric_state
   - entity_id: person.raspberrypisauce
-    event: enter
-    platform: zone
-    zone: zone.home
+    platform: state
+    to: home
   condition:
   - above: '78.9'
     condition: numeric_state
     entity_id: sensor.motion_sensor_temperature_measurement_2
-  - condition: zone
+  - condition: state
     entity_id: person.raspberrypisauce
-    zone: zone.home
+    state: home
   action:
   - data:
       entity_id: fan.bedroom_fan
-      speed: medium
+      speed: high
     service: fan.turn_on
