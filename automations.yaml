@@ -285,3 +285,17 @@
         for you.
       title: Doors Automatically Locked
     service: notify.html5_anrdoid_mobile
+- id: '1570723343457'
+  alias: Fans - turn off when I leave
+  trigger:
+  - entity_id: person.raspberrypisauce
+    from: home
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data:
+      entity_id:
+      - fan.bedroom_fan
+      - fan.guest_bedroom_fan
+    service: fan.turn_off

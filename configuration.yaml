@@ -35,9 +35,22 @@ wake_on_lan:
 switch:
   - platform: wake_on_lan
     mac_address: "30:9c:23:ea:ab:d0"
-    name: "Computer"
-    host: "192.168.1.31"
-    broadcast_address: "192.168.1.255"
+    name: computer_wol
+    host: 192.168.1.31
+    broadcast_address: 192.168.1.255
+  - platform: template
+    switches:
+      computer:
+        value_template: '{{ states.switch.computer_wol.state }}'
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.computer_wol
+        turn_off:
+          service: hassio.addon_stdin
+          data:
+            addon: core_rpc_shutdown
+            input: PC
     
 # Logitech Harmony Hub
 remote:
@@ -103,3 +116,4 @@ history:
       - light.under_cabinet_sink
       - light.under_cabinet_sink_2
       - light.under_cabinet_stove
+      - switch.computer_wol
