@@ -260,36 +260,8 @@
   - data:
       entity_id: light.all_indoor
     service: light.turn_off
-- id: '1570688894065'
-  alias: Locks - Lock doors when I leave if I forget
-  trigger:
-  - entity_id: person.raspberrypisauce
-    from: home
-    platform: state
-    to: not_home
-  condition:
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: lock.back_door_lock
-      state: unlocked
-    - condition: state
-      entity_id: lock.front_door_lock
-      state: unlocked
-  action:
-  - data:
-      entity_id:
-      - lock.back_door_lock
-      - lock.front_door_lock
-    service: lock.lock
-  - alias: ''
-    data:
-      message: Looks like you left home without locking the doors. I've fixed that
-        for you.
-      title: Doors Automatically Locked
-    service: notify.html5_anrdoid_mobile
 - id: '1570723343457'
-  alias: Fans - turn off when I leave
+  alias: Fans - Turn off when I leave
   trigger:
   - entity_id: person.raspberrypisauce
     from: home
@@ -302,3 +274,79 @@
       - fan.bedroom_fan
       - fan.guest_bedroom_fan
     service: fan.turn_off
+- id: '1570854881416'
+  alias: Lock - Lock the front door if closed when I'm away
+  trigger:
+  - entity_id: person.raspberrypisauce
+    from: home
+    platform: state
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: lock.front_door_lock
+    state: unlocked
+  - condition: state
+    entity_id: binary_sensor.front_door_contact
+    state: 'off'
+  action:
+  - data:
+      entity_id: lock.front_door_lock
+    service: lock.lock
+  - data:
+      message: Looks like you left the front door unlocked. I've locked it for you.
+      title: Front Door Locked
+    service: notify.html5_anrdoid_mobile
+- id: '1570855146802'
+  alias: Lock - Lock the back door if closed when I'm away
+  trigger:
+  - entity_id: person.raspberrypisauce
+    from: home
+    platform: state
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: lock.back_door_lock
+    state: unlocked
+  - condition: state
+    entity_id: binary_sensor.back_door_contact
+    state: 'off'
+  action:
+  - data:
+      entity_id: lock.back_door_lock
+    service: lock.lock
+  - data:
+      message: Looks like you left the back door unlocked. I've locked it for you.
+      title: Back Door Locked
+    service: notify.html5_anrdoid_mobile
+- id: '1570855325431'
+  alias: Lock - Warn if I leave the front door open
+  trigger:
+  - entity_id: person.raspberrypisauce
+    from: home
+    platform: state
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: binary_sensor.front_door_contact
+    state: 'on'
+  action:
+  - data:
+      message: You've left the front door open! Go back home and close it.
+      title: Front Door Open
+    service: notify.html5_anrdoid_mobile
+- id: '1570855443697'
+  alias: Lock - Warn if I leave the back door open
+  trigger:
+  - entity_id: person.raspberrypisauce
+    from: home
+    platform: state
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: binary_sensor.back_door_contact
+    state: 'on'
+  action:
+  - data:
+      message: You've left the back door open! Go back home and close it.
+      title: Back Door Open
+    service: notify.html5_anrdoid_mobile
