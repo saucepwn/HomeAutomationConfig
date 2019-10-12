@@ -193,6 +193,9 @@
   - condition: state
     entity_id: person.raspberrypisauce
     state: home
+  - condition: state
+    entity_id: fan.bedroom_fan
+    state: 'off'
   action:
   - data:
       entity_id: fan.bedroom_fan
