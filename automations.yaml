@@ -176,10 +176,10 @@
       scene_name: Afternoon
     service: hue.hue_activate_scene
 - id: '1570429088603'
-  alias: Bedroom Fan - Low [72 - 75]
+  alias: Bedroom Fan - Low [72 - 74]
   trigger:
   - above: '71.9'
-    below: '75.1'
+    below: '74.1'
     entity_id: sensor.motion_sensor_temperature_measurement_2
     platform: numeric_state
   - entity_id: person.raspberrypisauce
@@ -187,7 +187,7 @@
     to: home
   condition:
   - above: '71.9'
-    below: '75.1'
+    below: '74.1'
     condition: numeric_state
     entity_id: sensor.motion_sensor_temperature_measurement_2
   - condition: state
@@ -199,9 +199,9 @@
       speed: low
     service: fan.turn_on
 - id: '1570429428645'
-  alias: Bedroom Fan - Medium [76 - 78]
+  alias: Bedroom Fan - Medium [75 - 78]
   trigger:
-  - above: '75.9'
+  - above: '74.9'
     below: '78.1'
     entity_id: sensor.motion_sensor_temperature_measurement_2
     platform: numeric_state
@@ -209,7 +209,7 @@
     platform: state
     to: home
   condition:
-  - above: '75.9'
+  - above: '74.9'
     below: '78.1'
     condition: numeric_state
     entity_id: sensor.motion_sensor_temperature_measurement_2
