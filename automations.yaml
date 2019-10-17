@@ -136,7 +136,7 @@
     state: closed
   - condition: state
     entity_id: person.raspberrypisauce
-    state: Away
+    state: not_home
   action:
   - data:
       entity_id:
