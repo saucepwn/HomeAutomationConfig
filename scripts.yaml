@@ -80,6 +80,26 @@ tv_channel_down:
           - ChannelDown
         device: TV
         
+tv_input_tv:
+  alias: Input TV
+  sequence:
+    - service: remote.send_command
+      data:
+        entity_id: remote.living_room
+        command:
+          - InputTv
+        device: TV
+        
+tv_input_chromecast:
+  alias: Input Chromecast
+  sequence:
+    - service: remote.send_command
+      data:
+        entity_id: remote.living_room
+        command:
+          - InputHdmi1
+        device: TV
+        
 tv_channel_komo:
   alias: 4 - KOMO (ABC)
   sequence:
