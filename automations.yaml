@@ -45,10 +45,10 @@
       entity_id: light.outside
     service: light.turn_off
 - id: '1568832400745'
-  alias: Shades - Close 15 minutes after sunset
+  alias: Shades - Close 5 minutes after sunset
   trigger:
   - event: sunset
-    offset: +00:15:00
+    offset: +00:05:00
     platform: sun
   condition: []
   action:

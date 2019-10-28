@@ -1,158 +1,163 @@
-# Harmony Hub - Surround Sound
 surround_sound_power:
   alias: Power
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - PowerToggle
-        device: Surround Sound
-
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - PowerToggle
+      device: Surround Sound
 surround_sound_volume_up:
   alias: Volume Up
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - VolumeUp
-        device: Surround Sound
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - VolumeUp
+      device: Surround Sound
 surround_sound_volume_down:
   alias: Volume Down
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - VolumeDown
-        device: Surround Sound
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - VolumeDown
+      device: Surround Sound
 surround_sound_mute:
   alias: Mute
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - Mute
-        device: Surround Sound
-
-# Harmony Hub - TV
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - Mute
+      device: Surround Sound
 tv_power_on:
   alias: Turn On
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - PowerOn
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - PowerOn
+      device: TV
 tv_power_off:
   alias: Turn Off
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - PowerOff
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - PowerOff
+      device: TV
 tv_channel_up:
   alias: Channel Up
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - ChannelUp
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - ChannelUp
+      device: TV
 tv_channel_down:
   alias: Channel Down
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - ChannelDown
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - ChannelDown
+      device: TV
 tv_input_tv:
   alias: Input TV
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - InputTv
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - InputTv
+      device: TV
 tv_input_chromecast:
   alias: Input Chromecast
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - InputHdmi1
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - InputHdmi1
+      device: TV
 tv_channel_komo:
   alias: 4 - KOMO (ABC)
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - 4
-          - OK
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - 4
+      - OK
+      device: TV
 tv_channel_king:
   alias: 5 - KING (NBC)
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - 5
-          - OK
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - 5
+      - OK
+      device: TV
 tv_channel_kiro:
   alias: 7 - KIRO (CBS)
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - 7
-          - OK
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - 7
+      - OK
+      device: TV
 tv_channel_kcpq:
   alias: 13 - KCPQ (FOX)
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - 1
-          - 3
-          - OK
-        device: TV
-        
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - 1
+      - 3
+      - OK
+      device: TV
 tv_channel_kong:
   alias: 16 - KONG
   sequence:
-    - service: remote.send_command
-      data:
-        entity_id: remote.living_room
-        command:
-          - 1
-          - 6
-          - OK
-        device: TV
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - 1
+      - 6
+      - OK
+      device: TV
+'1572070210780':
+  alias: 'Lighting: Scene - Evening'
+  sequence:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Evening
+    service: hue.hue_activate_scene
+'1572070274974':
+  alias: 'Lighting: Scene - Daytime'
+  sequence:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Concentrate
+    service: hue.hue_activate_scene
+'1572070321226':
+  alias: 'Lighting: Scene - Bright Evening'
+  sequence:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Bright
+    service: hue.hue_activate_scene
