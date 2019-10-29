@@ -161,3 +161,10 @@ tv_channel_kong:
       group_name: Common areas & bedroom
       scene_name: Bright
     service: hue.hue_activate_scene
+'1572331520718':
+  alias: 'Lighting: Scene - Nightlights (whole Condo)'
+  sequence:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Real Nightlight
+    service: hue.hue_activate_scene
