@@ -162,7 +162,6 @@
       entity_id: weather.home
       state: cloudy
   - after: sunrise
-    after_offset: 01:00:00
     condition: sun
   - before: sunset
     before_offset: -02:00:00
@@ -350,3 +349,55 @@
       message: You've left the back door open! Go back home and close it.
       title: Back Door Open
     service: notify.html5_anrdoid_mobile
+- id: '1572578924832'
+  alias: Temperature - Alert when it's over 80F
+  description: ''
+  trigger:
+  - above: '79.9'
+    entity_id: sensor.condo_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      message: It's quite hot at the condo
+      title: Temperature Alert
+    service: notify.html5_anrdoid_mobile
+- id: '1572579009006'
+  alias: Temperature - Alert when it's below 65F
+  description: ''
+  trigger:
+  - below: '65.1'
+    entity_id: sensor.condo_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      message: It's quite cold at the condo
+      title: Temperature Alert
+    service: notify.html5_anrdoid_mobile
+- id: '1572579879472'
+  alias: Lights - Turn on guest bedroom with motion
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_motion_2
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      group_name: Guest bedroom
+      scene_name: Bright
+    service: hue.hue_activate_scene
+- id: '1572579998069'
+  alias: Lights - Turn off guest bedroom after > 10 minutes
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_motion_2
+    for: 00:10:00
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      entity_id: light.guest_bedroom
+    service: light.turn_off

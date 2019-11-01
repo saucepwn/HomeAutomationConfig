@@ -33,6 +33,15 @@ binary_sensor:
   - platform: workday
     country: US
 
+# Eufy Vacuum
+eufy_robovac:
+  devices:
+  - name: Mr Clean
+    address: 192.168.1.33
+    access_token: 2a5b6515f29e3313
+    id: 81667806ecfabcab87f8
+    type: T2118
+
 # Enable wake on LAN
 wake_on_lan:
 
