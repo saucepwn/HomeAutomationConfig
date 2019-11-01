@@ -107,11 +107,44 @@ notify:
     vapid_pub_key: !secret vapid_pub_key
     vapid_prv_key: !secret vapid_prv_key
     vapid_email: !secret vapid_email
-  - name: All Devices
-    platform: group
+  - platform: group
+    name: all_devices
     services:
       - service: html5_anrdoid_mobile
       - service: html5_desktop_home
+    
+# Alerts
+alert:
+  bathroom_leak_sensor_water:
+    name: bathroom_water_leak
+    title: Leak Detected
+    message: Water leak detected in the bathroom
+    done_message: Bathroom is back to normal
+    entity_id: binary_sensor.bathroom_leak_sensor_water
+    state: 'on'
+    repeat:
+      - 5
+      - 15
+      - 60
+    skip_first: false
+    can_acknowledge: false
+    notifiers:
+      - all_devices
+  kitchen_leak_sensor_water:
+    name: kitchen_water_leak
+    title: Leak Detected
+    message: Water leak detected in the kitchen
+    done_message: Kitchen is back to normal
+    entity_id: binary_sensor.kitchen_leak_sensor_water
+    state: 'on'
+    repeat:
+      - 5
+      - 15
+      - 60
+    skip_first: false
+    can_acknowledge: false
+    notifiers:
+      - all_devices
     
 sensor:
   # Average condo temperature sensor
