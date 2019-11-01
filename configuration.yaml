@@ -107,6 +107,11 @@ notify:
     vapid_pub_key: !secret vapid_pub_key
     vapid_prv_key: !secret vapid_prv_key
     vapid_email: !secret vapid_email
+  - name: All Devices
+    platform: group
+    services:
+      - service: html5_anrdoid_mobile
+      - service: html5_desktop_home
     
 sensor:
   # Average condo temperature sensor

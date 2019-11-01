@@ -294,7 +294,7 @@
   - data:
       message: Looks like you left the front door unlocked. I've locked it for you.
       title: Front Door Locked
-    service: notify.html5_anrdoid_mobile
+    service: notify.all_devices
 - id: '1570855146802'
   alias: Lock - Lock the back door if closed when I'm away
   trigger:
@@ -316,7 +316,7 @@
   - data:
       message: Looks like you left the back door unlocked. I've locked it for you.
       title: Back Door Locked
-    service: notify.html5_anrdoid_mobile
+    service: notify.all_devices
 - id: '1570855325431'
   alias: Lock - Warn if I leave the front door open
   trigger:
@@ -332,7 +332,7 @@
   - data:
       message: You've left the front door open! Go back home and close it.
       title: Front Door Open
-    service: notify.html5_anrdoid_mobile
+    service: notify.all_devices
 - id: '1570855443697'
   alias: Lock - Warn if I leave the back door open
   trigger:
@@ -348,7 +348,7 @@
   - data:
       message: You've left the back door open! Go back home and close it.
       title: Back Door Open
-    service: notify.html5_anrdoid_mobile
+    service: notify.all_devices
 - id: '1572578924832'
   alias: Temperature - Alert when it's over 80F
   description: ''
@@ -361,7 +361,7 @@
   - data:
       message: It's quite hot at the condo
       title: Temperature Alert
-    service: notify.html5_anrdoid_mobile
+    service: notify.all_devices
 - id: '1572579009006'
   alias: Temperature - Alert when it's below 65F
   description: ''
@@ -374,7 +374,7 @@
   - data:
       message: It's quite cold at the condo
       title: Temperature Alert
-    service: notify.html5_anrdoid_mobile
+    service: notify.all_devices
 - id: '1572579879472'
   alias: Lights - Turn on guest bedroom with motion
   description: ''
@@ -401,3 +401,16 @@
   - data:
       entity_id: light.guest_bedroom
     service: light.turn_off
+- id: '1572583994953'
+  alias: Leak Detection - Bathroom leak sensor
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.bathroom_leak_sensor_water
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      entity_id: media_player.bedroom_display
+      message: Water leak detected in the bathroom
+    service: tts.google_translate_say
