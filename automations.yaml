@@ -144,23 +144,12 @@
       - cover.serena_r_roller_shade_2
     service: cover.open_cover
 - id: '1570381389931'
-  alias: Shades - Turn on cool lights if it's sunny when shades open
+  alias: Shades - Turn on cool lights when shades open
   trigger:
   - entity_id: cover.serena_r_roller_shade
     platform: state
     to: open
   condition:
-  - condition: or
-    conditions:
-    - condition: state
-      entity_id: weather.home
-      state: sunny
-    - condition: state
-      entity_id: weather.home
-      state: partlycloudy
-    - condition: state
-      entity_id: weather.home
-      state: cloudy
   - after: sunrise
     condition: sun
   - before: sunset
@@ -382,12 +371,16 @@
   - entity_id: binary_sensor.motion_sensor_motion_2
     platform: state
     to: 'on'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.guest_bedroom
+    state: 'off'
   action:
-  - data:
-      group_name: Guest bedroom
-      scene_name: Bright
-    service: hue.hue_activate_scene
+  - data_template:
+      brightness: '{{ states.light.hallway_1.attributes.brightness }}'
+      color_temp: '{{ states.light.hallway_1.attributes.color_temp }}'
+    entity_id: light.guest_bedroom
+    service: light.turn_on
 - id: '1572579998069'
   alias: Lights - Turn off guest bedroom after > 10 minutes
   description: ''
@@ -401,16 +394,3 @@
   - data:
       entity_id: light.guest_bedroom
     service: light.turn_off
-- id: '1572583994953'
-  alias: Leak Detection - Bathroom leak sensor
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.bathroom_leak_sensor_water
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data:
-      entity_id: media_player.bedroom_display
-      message: Water leak detected in the bathroom
-    service: tts.google_translate_say
