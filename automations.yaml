@@ -2,22 +2,24 @@
   alias: Match hallway lights to living room lights
   trigger:
   - entity_id: binary_sensor.hallway_motion
-    from: 'off'
     platform: state
     to: 'on'
+  - entity_id: binary_sensor.hallway_motion
+    platform: state
+    to: 'off'
   condition:
   - condition: state
     entity_id: light.living_room_ceiling_4
     state: 'on'
   action:
   - alias: ''
-    service: light.turn_on
-    entity_id:
-    - light.hallway_1
-    - light.hallway_2
     data_template:
       brightness: '{{ states.light.living_room_ceiling_4.attributes.brightness }}'
       color_temp: '{{ states.light.living_room_ceiling_4.attributes.color_temp }}'
+    entity_id:
+    - light.hallway_1
+    - light.hallway_2
+    service: light.turn_on
 - id: '1568831881438'
   alias: Outdoor lights - on at sunset
   trigger:
@@ -45,10 +47,10 @@
       entity_id: light.outside
     service: light.turn_off
 - id: '1568832400745'
-  alias: Shades - Close 5 minutes after sunset
+  alias: Shades - Close after sunset
   trigger:
   - event: sunset
-    offset: +00:05:00
+    offset: +00:10:00
     platform: sun
   condition: []
   action:
@@ -77,7 +79,9 @@
       entity_id: switch.computer
     service: switch.turn_on
 - id: '1569304361436'
-  alias: Evening door unlock - Turn on lights
+  alias: Lock - Turn on interior lights after sunset
+  description: If the door is unlocked after sunset, turn on all interior lights if
+    they're off.
   trigger:
   - entity_id: lock.back_door_lock
     from: locked
@@ -382,11 +386,11 @@
     entity_id: light.guest_bedroom
     service: light.turn_on
 - id: '1572579998069'
-  alias: Lights - Turn off guest bedroom after > 10 minutes
+  alias: Lights - Turn off guest bedroom after inactivity
   description: ''
   trigger:
   - entity_id: binary_sensor.motion_sensor_motion_2
-    for: 00:10:00
+    for: 00:05:00
     platform: state
     to: 'off'
   condition: []
@@ -394,3 +398,126 @@
   - data:
       entity_id: light.guest_bedroom
     service: light.turn_off
+- id: '1574050640483'
+  alias: Christmas Lights - Outdoor - On at dusk
+  description: ''
+  trigger:
+  - event: sunset
+    offset: -00:10:00
+    platform: sun
+  condition: []
+  action:
+  - device_id: ed06766648784b24b475ced8a7c435bb
+    domain: switch
+    entity_id: switch.bedroom_window_lights
+    type: turn_on
+  - device_id: de7bfee3daec43ffb8c689d8e377478a
+    domain: switch
+    entity_id: switch.guest_bedroom_window_lights
+    type: turn_on
+  - device_id: aea6714a649243a69343941ed99f1c1b
+    domain: switch
+    entity_id: switch.living_room_window_lights
+    type: turn_on
+- id: '1574050716146'
+  alias: Christmas Lights - Outdoor - Off at 4am
+  description: ''
+  trigger:
+  - at: 04:00:00
+    platform: time
+  condition: []
+  action:
+  - device_id: ed06766648784b24b475ced8a7c435bb
+    domain: switch
+    entity_id: switch.bedroom_window_lights
+    type: turn_off
+  - device_id: de7bfee3daec43ffb8c689d8e377478a
+    domain: switch
+    entity_id: switch.guest_bedroom_window_lights
+    type: turn_off
+  - device_id: aea6714a649243a69343941ed99f1c1b
+    domain: switch
+    entity_id: switch.living_room_window_lights
+    type: turn_off
+- id: '1574067039121'
+  alias: Christmas Lights - Living Room - 6 hour timer override
+  description: The living room Christmas lights have a built in 6 hour timer. In order
+    to ensure HA always has control over the light's state, power cycle the lights
+    every 5.5 hours to reset its internal timer.
+  trigger:
+  - entity_id: switch.living_room_perimeter_lights
+    for: 05:30:00
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - device_id: c98fbe1c32a04977981d4ed626e2432f
+    domain: switch
+    entity_id: switch.living_room_perimeter_lights
+    type: turn_off
+  - delay: 00:00:02
+  - device_id: c98fbe1c32a04977981d4ed626e2432f
+    domain: switch
+    entity_id: switch.living_room_perimeter_lights
+    type: turn_on
+- id: '1574067136055'
+  alias: Christmas Lights - Indoor - Turn off when away
+  description: ''
+  trigger:
+  - entity_id: person.raspberrypisauce
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - device_id: c98fbe1c32a04977981d4ed626e2432f
+    domain: switch
+    entity_id: switch.living_room_perimeter_lights
+    type: turn_off
+- id: '1574067318485'
+  alias: Christmas Lights - Indoor - Turn on if home & sunset
+  description: ''
+  trigger:
+  - entity_id: person.raspberrypisauce
+    platform: state
+    to: home
+  - event: sunset
+    offset: +00:10:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: person.raspberrypisauce
+    state: home
+  - after: sunset
+    after_offset: +00:10:00
+    condition: sun
+  action:
+  - device_id: c98fbe1c32a04977981d4ed626e2432f
+    domain: switch
+    entity_id: switch.living_room_perimeter_lights
+    type: turn_on
+- id: '1574964598493'
+  alias: Lights - On in the morning with motion
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.hallway_motion
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.master_bedroom
+    state: 'on'
+  - condition: sun
+    after: sunrise
+  - condition: time
+    before: '12:00:00'
+  - condition: state
+    entity_id: light.hallway
+    state: 'off'
+  - condition: state
+    entity_id: light.living_room
+    state: 'off'
+  action:
+  - data:
+      group_name: Common areas
+      scene_name: Bright
+    service: hue.hue_activate_scene
