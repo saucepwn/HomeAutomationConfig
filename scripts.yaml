@@ -140,6 +140,32 @@ tv_channel_kong:
       - 6
       - OK
       device: TV
+living_room_fan_on:
+  alias: Living Room Fan
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - PowerToggle
+      device: Bedroom fan
+  - delay:
+      seconds: 2
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - Oscillation
+      device: Bedroom fan
+living_room_fan_speed_cycle:
+  alias: Living Room Fan - Speed
+  sequence:
+  - service: remote.send_command
+    data:
+      entity_id: remote.living_room
+      command:
+      - Speed
+      device: Bedroom fan
 '1572070210780':
   alias: 'Lighting: Scene - Evening'
   sequence:

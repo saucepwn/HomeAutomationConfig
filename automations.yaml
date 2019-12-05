@@ -521,3 +521,34 @@
       group_name: Common areas
       scene_name: Bright
     service: hue.hue_activate_scene
+- id: '1575326973689'
+  alias: Lights - Turn off bedroom after 10 minutes
+  description: Only after 11am when I'm presumably awake, but before sunset, turn
+    off the bedroom lights if there is no motion for a period of time.
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_motion
+    for: 00:10:00
+    platform: state
+    to: 'off'
+  condition:
+  - after: '11:00:00'
+    condition: time
+  - before: sunset
+    condition: sun
+  action:
+  - data:
+      entity_id: light.master_bedroom
+    service: light.turn_off
+- id: '1575529515498'
+  alias: Living Room Fan - Map HA switch to on/off script
+  description: ''
+  trigger:
+  - entity_id: input_boolean.living_room_fan_ir
+    platform: state
+    to: 'on'
+  - entity_id: input_boolean.living_room_fan_ir
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - service: script.living_room_fan_on

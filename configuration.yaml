@@ -145,7 +145,13 @@ alert:
     can_acknowledge: false
     notifiers:
       - all_devices
-    
+
+input_boolean:
+  living_room_fan_ir:
+    name: Living Room Fan
+    initial: off
+    icon: mdi:fan
+
 sensor:
   # Average condo temperature sensor
   - platform: min_max
