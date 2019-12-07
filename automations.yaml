@@ -552,3 +552,26 @@
   condition: []
   action:
   - service: script.living_room_fan_on
+- id: '1575750135185'
+  alias: Lights - Turn on bedroom lights with motion
+  description: During daylight hours, turn on the bedroom lights to match the hallway
+    if there's motion.
+  trigger:
+  - entity_id: binary_sensor.motion_sensor_motion
+    platform: state
+    to: 'on'
+  condition:
+  - before: sunset
+    before_offset: +01:00:00
+    condition: sun
+  - condition: state
+    entity_id: light.master_bedroom
+    state: 'off'
+  - after: '11:00:00'
+    condition: time
+  action:
+  - data_template:
+      brightness: '{{ states.light.hallway_1.attributes.brightness }}'
+      color_temp: '{{ states.light.hallway_1.attributes.color_temp }}'
+    entity_id: light.master_bedroom
+    service: light.turn_on
