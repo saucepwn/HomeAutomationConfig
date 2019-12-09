@@ -24,7 +24,7 @@
   alias: Outdoor lights - on at sunset
   trigger:
   - event: sunset
-    offset: -00:45:00
+    offset: -00:30:00
     platform: sun
   condition: []
   action:
@@ -39,8 +39,9 @@
 - id: '1568831954351'
   alias: Outdoor lights - off at sunrise
   trigger:
-  - platform: sun
-    event: sunrise
+  - event: sunrise
+    offset: -00:15:00
+    platform: sun
   condition: []
   action:
   - data:
