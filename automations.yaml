@@ -255,6 +255,7 @@
     service: light.turn_off
 - id: '1570723343457'
   alias: Fans - Turn off when I leave
+  description: Turn off fans and heaters when I leave the condo
   trigger:
   - entity_id: person.raspberrypisauce
     from: home
@@ -267,6 +268,10 @@
       - fan.bedroom_fan
       - fan.guest_bedroom_fan
     service: fan.turn_off
+  - device_id: 8193bacd045943e988af7559857162da
+    domain: switch
+    entity_id: switch.living_room_heater
+    type: turn_off
 - id: '1570854881416'
   alias: Lock - Lock the front door if closed when I'm away
   trigger:
@@ -576,3 +581,39 @@
       color_temp: '{{ states.light.hallway_1.attributes.color_temp }}'
     entity_id: light.master_bedroom
     service: light.turn_on
+- id: '1576651460566'
+  alias: Heat - Turn on if I'm home and condo is below 72F
+  description: Turn on the living room heater if condo is below 72F
+  trigger:
+  - entity_id: person.raspberrypisauce
+    event: enter
+    platform: zone
+    zone: zone.home
+  - below: '72'
+    entity_id: sensor.condo_temperature
+    platform: numeric_state
+  condition:
+  - condition: zone
+    entity_id: person.raspberrypisauce
+    zone: zone.home
+  - below: '72'
+    condition: numeric_state
+    entity_id: sensor.condo_temperature
+  action:
+  - device_id: 8193bacd045943e988af7559857162da
+    domain: switch
+    entity_id: switch.living_room_heater
+    type: turn_on
+- id: '1576651512715'
+  alias: Heat - Turn off when condo is 72F or above
+  description: ''
+  trigger:
+  - above: '72'
+    entity_id: sensor.condo_temperature
+    platform: numeric_state
+  condition: []
+  action:
+  - device_id: 8193bacd045943e988af7559857162da
+    domain: switch
+    entity_id: switch.living_room_heater
+    type: turn_off

@@ -47,7 +47,7 @@ wake_on_lan:
 
 switch:
   - platform: wake_on_lan
-    mac_address: "30:9c:23:ea:ab:d0"
+    mac: "30:9c:23:ea:ab:d0"
     name: computer_wol
     host: 192.168.1.31
     broadcast_address: 192.168.1.255
