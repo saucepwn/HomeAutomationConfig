@@ -151,6 +151,10 @@ input_boolean:
     name: Living Room Fan
     initial: off
     icon: mdi:fan
+  nightlight:
+    name: Night light
+    initial: off
+    icon: mdi:lightbulb-outline
 
 sensor:
   # Average condo temperature sensor

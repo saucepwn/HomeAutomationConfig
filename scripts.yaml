@@ -177,7 +177,7 @@ living_room_fan_speed_cycle:
   alias: 'Lighting: Scene - Daytime'
   sequence:
   - data:
-      group_name: Common areas & bedroom
+      group_name: Common areas
       scene_name: Concentrate
     service: hue.hue_activate_scene
 '1572070321226':

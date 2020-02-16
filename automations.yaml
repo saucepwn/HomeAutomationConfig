@@ -140,7 +140,7 @@
     entity_id: cover.serena_r_roller_shade
     state: closed
   - condition: state
-    entity_id: person.raspberrypisauce
+    entity_id: group.home_occupancy
     state: not_home
   action:
   - data:
@@ -158,11 +158,11 @@
   - after: sunrise
     condition: sun
   - before: sunset
-    before_offset: -02:00:00
+    before_offset: -01:00:00
     condition: sun
-  - condition: zone
-    entity_id: person.raspberrypisauce
-    zone: zone.home
+  - condition: state
+    entity_id: group.home_occupancy
+    state: home
   action:
   - data:
       group_name: Common areas & bedroom
@@ -239,9 +239,9 @@
       speed: high
     service: fan.turn_on
 - id: '1570688536245'
-  alias: Lights - Turn off when I leave home
+  alias: Lights - Turn off when everyone leaves
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     from: home
     platform: state
     to: not_home
@@ -254,10 +254,10 @@
       entity_id: light.all_indoor
     service: light.turn_off
 - id: '1570723343457'
-  alias: Fans - Turn off when I leave
-  description: Turn off fans and heaters when I leave the condo
+  alias: Fans - Turn off when everyone leaves
+  description: Turn off fans and heaters when everyone leaves the condo
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     from: home
     platform: state
     to: not_home
@@ -272,10 +272,14 @@
     domain: switch
     entity_id: switch.living_room_heater
     type: turn_off
+  - device_id: 8f999104ce6a43cf8389582f37e8181d
+    domain: switch
+    entity_id: switch.living_room_fan
+    type: turn_off
 - id: '1570854881416'
-  alias: Lock - Lock the front door if closed when I'm away
+  alias: Lock - Lock the front door if closed when away
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     from: home
     platform: state
     to: not_home
@@ -295,9 +299,9 @@
       title: Front Door Locked
     service: notify.all_devices
 - id: '1570855146802'
-  alias: Lock - Lock the back door if closed when I'm away
+  alias: Lock - Lock the back door if closed when away
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     from: home
     platform: state
     to: not_home
@@ -319,7 +323,7 @@
 - id: '1570855325431'
   alias: Lock - Warn if I leave the front door open
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     from: home
     platform: state
     to: not_home
@@ -335,7 +339,7 @@
 - id: '1570855443697'
   alias: Lock - Warn if I leave the back door open
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     from: home
     platform: state
     to: not_home
@@ -385,6 +389,11 @@
   - condition: state
     entity_id: light.guest_bedroom
     state: 'off'
+  - condition: state
+    entity_id: light.hallway
+    state: 'on'
+  - after: 09:00:00
+    condition: time
   action:
   - data_template:
       brightness: '{{ states.light.hallway_1.attributes.brightness }}'
@@ -396,10 +405,13 @@
   description: ''
   trigger:
   - entity_id: binary_sensor.motion_sensor_motion_2
-    for: 00:05:00
+    for: 0:{{ states.light.guest_bedroom_1.attributes.brightness|int // 25 }}:00
     platform: state
     to: 'off'
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.guest_bedroom
+    state: 'on'
   action:
   - data:
       entity_id: light.guest_bedroom
@@ -470,7 +482,7 @@
   alias: Christmas Lights - Indoor - Turn off when away
   description: ''
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     platform: state
     to: not_home
   condition: []
@@ -483,7 +495,7 @@
   alias: Christmas Lights - Indoor - Turn on if home & sunset
   description: ''
   trigger:
-  - entity_id: person.raspberrypisauce
+  - entity_id: group.home_occupancy
     platform: state
     to: home
   - event: sunset
@@ -491,7 +503,7 @@
     platform: sun
   condition:
   - condition: state
-    entity_id: person.raspberrypisauce
+    entity_id: group.home_occupancy
     state: home
   - after: sunset
     after_offset: +00:10:00
@@ -529,7 +541,7 @@
     service: hue.hue_activate_scene
 - id: '1575326973689'
   alias: Lights - Turn off bedroom after 10 minutes
-  description: Only after 11am when I'm presumably awake, but before sunset, turn
+  description: Only after 10am when I'm presumably awake, but before sunset, turn
     off the bedroom lights if there is no motion for a period of time.
   trigger:
   - entity_id: binary_sensor.motion_sensor_motion
@@ -537,10 +549,9 @@
     platform: state
     to: 'off'
   condition:
-  - after: '11:00:00'
-    condition: time
-  - before: sunset
-    condition: sun
+  - condition: state
+    entity_id: cover.serena_r_roller_shade
+    state: open
   action:
   - data:
       entity_id: light.master_bedroom
@@ -573,8 +584,9 @@
   - condition: state
     entity_id: light.master_bedroom
     state: 'off'
-  - after: '11:00:00'
-    condition: time
+  - condition: state
+    entity_id: cover.serena_r_roller_shade
+    state: open
   action:
   - data_template:
       brightness: '{{ states.light.hallway_1.attributes.brightness }}'
@@ -582,21 +594,20 @@
     entity_id: light.master_bedroom
     service: light.turn_on
 - id: '1576651460566'
-  alias: Heat - Turn on if I'm home and condo is below 72F
-  description: Turn on the living room heater if condo is below 72F
+  alias: Heat - Turn on if home and condo is below 71F
+  description: Turn on the living room heater if condo is below 71F
   trigger:
-  - entity_id: person.raspberrypisauce
-    event: enter
-    platform: zone
-    zone: zone.home
-  - below: '72'
+  - entity_id: group.home_occupancy
+    platform: state
+    to: home
+  - below: '71'
     entity_id: sensor.condo_temperature
     platform: numeric_state
   condition:
-  - condition: zone
-    entity_id: person.raspberrypisauce
-    zone: zone.home
-  - below: '72'
+  - condition: state
+    entity_id: group.home_occupancy
+    state: home
+  - below: '71'
     condition: numeric_state
     entity_id: sensor.condo_temperature
   action:
@@ -617,3 +628,91 @@
     domain: switch
     entity_id: switch.living_room_heater
     type: turn_off
+- id: '1581621914254'
+  alias: Lock - Turn on interior lights during the day
+  description: ''
+  trigger:
+  - entity_id: lock.back_door_lock
+    from: locked
+    platform: state
+    to: unlocked
+  - entity_id: lock.front_door_lock
+    from: locked
+    platform: state
+    to: unlocked
+  condition:
+  - before: sunset
+    before_offset: -01:00:00
+    condition: sun
+  - condition: state
+    entity_id: cover.serena_r_roller_shade
+    state: open
+  - condition: state
+    entity_id: light.living_room
+    state: 'off'
+  action:
+  - data:
+      group_name: Common areas
+      scene_name: Concentrate
+    service: hue.hue_activate_scene
+- id: '1581622934381'
+  alias: Lights - Turn lights warm at sunset
+  description: ''
+  trigger:
+  - event: sunset
+    offset: -01:00:00
+    platform: sun
+  condition:
+  - condition: state
+    entity_id: light.common_areas
+    state: 'on'
+  action:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Bright
+    service: hue.hue_activate_scene
+- id: '1581666777729'
+  alias: Lights - Nightlight trigger
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.hallway_motion
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.common_areas
+    state: 'off'
+  - after: sunset
+    after_offset: +01:00:00
+    before: sunrise
+    before_offset: -01:00:00
+    condition: sun
+  action:
+  - alias: ''
+    data:
+      brightness: 12
+      entity_id:
+      - light.under_cabinet_stove
+      - light.under_cabinet_sink
+      rgb_color:
+      - 255
+      - 187
+      - 44
+    service: light.turn_on
+  - data: {}
+    entity_id: input_boolean.nightlight
+    service: input_boolean.turn_on
+- id: '1581819564232'
+  alias: Lights - Nightlight off
+  description: ''
+  trigger:
+  - entity_id: input_boolean.nightlight
+    for: 00:03:00
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - entity_id: input_boolean.nightlight
+    service: input_boolean.turn_off
+  - entity_id: light.common_areas
+    service: light.turn_off
