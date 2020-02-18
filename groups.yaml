@@ -3,3 +3,4 @@ home_occupancy:
   entities:
     - person.raspberrypisauce
     - person.sean
+    - person.qifan

@@ -19,6 +19,13 @@ group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
 
+# MQTT
+mqtt:
+  broker: 192.168.1.22
+  client_id: home_assistant
+  username: mqtt
+  password: XxUMi8yd3t
+
 # Device tracker
 device_tracker:
   - platform: synology_srm
@@ -26,7 +33,6 @@ device_tracker:
     password: !secret synology_password
     new_device_defaults:
       track_new_devices: true
-      hide_if_away: false
 
 # Workday tracker
 binary_sensor:
@@ -44,6 +50,17 @@ eufy_robovac:
 
 # Enable wake on LAN
 wake_on_lan:
+
+cover:
+  - platform: mqtt
+    name: "Garage door"
+    command_topic: "garadget/Garage/command"
+    state_topic: "garadget/Garage/status"
+    state_open: "open"
+    state_closed: "closed"
+    payload_open: "open"
+    payload_close: "close"
+    value_template: '{{ value_json.status }}'
 
 switch:
   - platform: wake_on_lan
