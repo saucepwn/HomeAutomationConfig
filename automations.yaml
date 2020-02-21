@@ -392,8 +392,6 @@
   - condition: state
     entity_id: light.hallway
     state: 'on'
-  - after: 09:00:00
-    condition: time
   action:
   - data_template:
       brightness: '{{ states.light.hallway_1.attributes.brightness }}'
@@ -716,3 +714,17 @@
     service: input_boolean.turn_off
   - entity_id: light.common_areas
     service: light.turn_off
+- id: '1582235144756'
+  alias: Garage - Warn if door is open for >5 minutes
+  description: ''
+  trigger:
+  - entity_id: cover.garage_door
+    for: 00:05:00
+    platform: state
+    to: open
+  condition: []
+  action:
+  - data:
+      message: The garage has been open for 5 minutes
+      title: Garage Door Open
+    service: notify.all_devices

@@ -51,6 +51,10 @@ eufy_robovac:
 # Enable wake on LAN
 wake_on_lan:
 
+# Log to MariaDB
+recorder:
+  db_url: !secret mariadb_connection_string
+
 cover:
   - platform: mqtt
     name: "Garage door"
