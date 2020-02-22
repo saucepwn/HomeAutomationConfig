@@ -16,7 +16,7 @@ person.raspberrypisauce:
 switch.computer:
   icon: mdi:desktop-tower-monitor
 cover.garage_door:
-  icon: mdi:garage
+  device_class: garage
 switch.living_room_heater:
   icon: mdi:fire
 script.1572070274974:
@@ -43,3 +43,11 @@ sensor.motion_sensor_temperature_measurement:
   icon: mdi:bed-double
 sensor.motion_sensor_temperature_measurement_2:
   icon: mdi:bed-king
+cover.serena_r_roller_shade:
+  device_class: shade
+cover.serena_r_roller_shade_2:
+  device_class: shade
+binary_sensor.front_door_contact:
+  device_class: door
+binary_sensor.back_door_contact:
+  device_class: door
