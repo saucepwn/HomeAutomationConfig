@@ -8,13 +8,38 @@ light.discoagroupodd:
   hidden: true
 binary_sensor.garrett_padera_s_pixel_perfect_presence:
   hidden: true
-
 sensor.condo_temperature:
   icon: mdi:thermometer
   device_class: temperature
-
 person.raspberrypisauce:
   entity_picture: /local/img/garrett_face.jpg
-
 switch.computer:
   icon: mdi:desktop-tower-monitor
+cover.garage_door:
+  icon: mdi:garage
+switch.living_room_heater:
+  icon: mdi:fire
+script.1572070274974:
+  icon: mdi:weather-sunny
+script.1572070321226:
+  icon: mdi:weather-sunset
+script.1572070210780:
+  icon: mdi:weather-night-partly-cloudy
+script.1572331520718:
+  icon: mdi:weather-night
+automation.bedroom_fan_low_72_74:
+  icon: mdi:fan
+automation.bedroom_fan_high_79:
+  icon: mdi:fan
+automation.bedroom_fan_medium_75_78:
+  icon: mdi:fan
+automation.fans_turn_off_when_everyone_leaves:
+  icon: mdi:fan-off
+automation.heat_turn_off_when_condo_is_72f_or_above:
+  icon: mdi:fire
+automation.heat_turn_on_if_home_and_condo_is_below_71f:
+  icon: mdi:fire
+sensor.motion_sensor_temperature_measurement:
+  icon: mdi:bed-double
+sensor.motion_sensor_temperature_measurement_2:
+  icon: mdi:bed-king
