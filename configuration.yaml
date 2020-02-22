@@ -1,4 +1,3 @@
-
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
@@ -24,7 +23,7 @@ mqtt:
   broker: 192.168.1.22
   client_id: home_assistant
   username: mqtt
-  password: XxUMi8yd3t
+  password: !secret mqtt_password
 
 # Device tracker
 device_tracker:
@@ -44,8 +43,8 @@ eufy_robovac:
   devices:
   - name: Mr Clean
     address: 192.168.1.33
-    access_token: 2a5b6515f29e3313
-    id: 81667806ecfabcab87f8
+    access_token: !secret eufy_access_token
+    id: !secret eufy_id
     type: T2118
 
 # Enable wake on LAN
