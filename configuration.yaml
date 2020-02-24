@@ -54,6 +54,69 @@ wake_on_lan:
 recorder:
   db_url: !secret mariadb_connection_string
 
+# Google Assistant
+google_assistant:
+  project_id: home-assistant-253907
+  service_account: !include google_assistant_service_account.json
+  report_state: true
+  expose_by_default: false
+  entity_config:
+    cover.garage_door:
+      expose: true
+    cover.serena_r_roller_shade:
+      expose: true
+    cover.serena_r_roller_shade_2:
+      expose: true
+    fan.bedroom_fan:
+      expose: true
+    fan.guest_bedroom_fan:
+      expose: true
+    input_boolean.living_room_fan_ir:
+      expose: true
+    light.dining_room:
+      expose: true
+    light.guest_bedroom:
+      expose: true
+    light.hallway:
+      expose: true
+    light.kitchen:
+      expose: true
+    light.living_room:
+      expose: true
+    light.master_bedroom:
+      expose: true
+    lock.back_door_lock:
+      expose: true
+    lock.front_door_lock:
+      expose: true
+    script.1572070274974:
+      expose: true
+      name: Daytime lights
+    script.1572070321226:
+      expose: true
+      name: Afternoon lights
+    script.1572070210780:
+      expose: true
+      name: Evening lights
+    script.1572331520718:
+      expose: true
+      name: Night lights
+    sensor.condo_temperature:
+      expose: true
+      aliases:
+        - INSIDE_TEMPERATURE
+        - TEMPERATURE_INSIDE
+    switch.air_purifier:
+      expose: true
+    switch.computer:
+      expose: true
+    switch.living_room_heater:
+      expose: true
+    switch.watch_chromecast:
+      expose: true
+    switch.watch_tv:
+      expose: true
+
 cover:
   - platform: mqtt
     name: "Garage door"
