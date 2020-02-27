@@ -40,8 +40,10 @@ automation.heat_turn_off_when_condo_is_72f_or_above:
 automation.heat_turn_on_if_home_and_condo_is_below_71f:
   icon: mdi:fire
 sensor.motion_sensor_temperature_measurement:
+  friendly_name: Guest bedroom temperature
   icon: mdi:bed-double
 sensor.motion_sensor_temperature_measurement_2:
+  friendly_name: Bedroom temperature
   icon: mdi:bed-king
 cover.serena_r_roller_shade:
   device_class: shade

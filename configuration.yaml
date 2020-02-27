@@ -106,6 +106,8 @@ google_assistant:
       aliases:
         - INSIDE_TEMPERATURE
         - TEMPERATURE_INSIDE
+    sensor.motion_sensor_temperature_measurement_2:
+      expose: true
     switch.air_purifier:
       expose: true
     switch.computer:
@@ -136,6 +138,34 @@ switch:
     broadcast_address: 192.168.1.255
   - platform: template
     switches:
+      # Show air purifier low/med/high fan speed
+      air_purifier_with_speed:
+        friendly_name: Air purifier
+        value_template: '{{ states.switch.air_purifier.state }}'
+        icon_template: >-
+          {% if is_state('switch.air_purifier', 'off') %}
+            mdi:circle-off-outline
+          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 6 %}
+            mdi:speedometer-slow
+          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 39 %}
+            mdi:speedometer-medium
+          {% else %}
+            mdi:speedometer
+          {% endif %}
+        availability_template: >-
+          {%- if not is_state('switch.air_purifier', 'unavailable') %}
+            true
+          {%- endif %}
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.air_purifier
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.air_purifier
+    
+      # Turn computer on and off
       computer:
         value_template: '{{ states.switch.computer_wol.state }}'
         turn_on:
@@ -250,6 +280,35 @@ sensor:
       - sensor.hallway_temperature_measurement
       - sensor.motion_sensor_temperature_measurement
       - sensor.motion_sensor_temperature_measurement_2
+  - platform: template
+    sensors:
+      # Show air purifier low/med/high fan speed
+      air_purifier_with_speed:
+        friendly_name: Air purifier speed
+        value_template: >-
+          {% if is_state('switch.air_purifier', 'off') %}
+            off
+          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 6 %}
+            low
+          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 39 %}
+            medium
+          {% else %}
+            high
+          {% endif %}
+        icon_template: >-
+          {% if is_state('switch.air_purifier', 'off') %}
+            mdi:circle-off-outline
+          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 6 %}
+            mdi:speedometer-slow
+          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 39 %}
+            mdi:speedometer-medium
+          {% else %}
+            mdi:speedometer
+          {% endif %}
+        availability_template: >-
+          {%- if not is_state('switch.air_purifier', 'unavailable') %}
+            true
+          {%- endif %}
     
 history:
   exclude:
