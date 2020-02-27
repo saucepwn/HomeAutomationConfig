@@ -36,6 +36,7 @@ surround_sound_mute:
       device: Surround Sound
 tv_power_on:
   alias: Turn On
+  icon: mdi:power-on
   sequence:
   - service: remote.send_command
     data:
@@ -45,6 +46,7 @@ tv_power_on:
       device: TV
 tv_power_off:
   alias: Turn Off
+  icon: mdi:power-off
   sequence:
   - service: remote.send_command
     data:
@@ -54,6 +56,7 @@ tv_power_off:
       device: TV
 tv_channel_up:
   alias: Channel Up
+  icon: mdi:arrow-up-bold-circle-outline
   sequence:
   - service: remote.send_command
     data:
@@ -63,6 +66,7 @@ tv_channel_up:
       device: TV
 tv_channel_down:
   alias: Channel Down
+  icon: mdi:arrow-down-bold-circle-outline
   sequence:
   - service: remote.send_command
     data:
@@ -72,6 +76,7 @@ tv_channel_down:
       device: TV
 tv_input_tv:
   alias: Input TV
+  icon: mdi:television-classic
   sequence:
   - service: remote.send_command
     data:
@@ -81,6 +86,7 @@ tv_input_tv:
       device: TV
 tv_input_chromecast:
   alias: Input Chromecast
+  icon: mdi:television-play
   sequence:
   - service: remote.send_command
     data:
@@ -90,6 +96,7 @@ tv_input_chromecast:
       device: TV
 tv_channel_komo:
   alias: 4 - KOMO (ABC)
+  icon: mdi:antenna
   sequence:
   - service: remote.send_command
     data:
@@ -100,6 +107,7 @@ tv_channel_komo:
       device: TV
 tv_channel_king:
   alias: 5 - KING (NBC)
+  icon: mdi:antenna
   sequence:
   - service: remote.send_command
     data:
@@ -110,6 +118,7 @@ tv_channel_king:
       device: TV
 tv_channel_kiro:
   alias: 7 - KIRO (CBS)
+  icon: mdi:antenna
   sequence:
   - service: remote.send_command
     data:
@@ -120,6 +129,7 @@ tv_channel_kiro:
       device: TV
 tv_channel_kcpq:
   alias: 13 - KCPQ (FOX)
+  icon: mdi:antenna
   sequence:
   - service: remote.send_command
     data:
@@ -131,6 +141,7 @@ tv_channel_kcpq:
       device: TV
 tv_channel_kong:
   alias: 16 - KONG
+  icon: mdi:antenna
   sequence:
   - service: remote.send_command
     data:
@@ -168,6 +179,7 @@ living_room_fan_speed_cycle:
       device: Bedroom fan
 '1572070210780':
   alias: 'Lighting: Scene - Evening'
+  icon: mdi:weather-night-partly-cloudy
   sequence:
   - data:
       group_name: Common areas & bedroom
@@ -175,6 +187,7 @@ living_room_fan_speed_cycle:
     service: hue.hue_activate_scene
 '1572070274974':
   alias: 'Lighting: Scene - Daytime'
+  icon: mdi:weather-sunny
   sequence:
   - data:
       group_name: Common areas
@@ -182,6 +195,7 @@ living_room_fan_speed_cycle:
     service: hue.hue_activate_scene
 '1572070321226':
   alias: 'Lighting: Scene - Bright Evening'
+  icon: mdi:weather-sunset
   sequence:
   - data:
       group_name: Common areas & bedroom
@@ -189,6 +203,7 @@ living_room_fan_speed_cycle:
     service: hue.hue_activate_scene
 '1572331520718':
   alias: 'Lighting: Scene - Nightlights (whole Condo)'
+  icon: mdi:weather-night
   sequence:
   - data:
       group_name: Common areas & bedroom
