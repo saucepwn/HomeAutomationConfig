@@ -309,7 +309,7 @@ sensor:
           {%- if not is_state('switch.air_purifier', 'unavailable') %}
             true
           {%- endif %}
-    
+
 history:
   exclude:
     domains:
