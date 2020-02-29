@@ -767,3 +767,19 @@
       media_content_type: audio/mp3
     entity_id: media_player.common_areas
     service: media_player.play_media
+- id: '1582958778558'
+  alias: Garage - Alert if I leave and garage is open
+  description: ''
+  trigger:
+  - entity_id: group.home_occupancy
+    platform: state
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  action:
+  - data:
+      message: The garage door is open and it looks like you've left.
+      title: Garage Open
+    service: notify.html5_anrdoid_mobile
