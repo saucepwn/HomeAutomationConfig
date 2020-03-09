@@ -783,3 +783,62 @@
       message: The garage door is open and it looks like you've left.
       title: Garage Open
     service: notify.html5_anrdoid_mobile
+- id: '1583731285497'
+  alias: Vacuum - Schedule vacuum
+  description: This turns on the input_boolean.vacuum_standby entity. This entity
+    tells the vacuum to run as soon as everyone leaves the house.
+  trigger:
+  - at: 06:00:00
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - wed
+    - fri
+  action:
+  - data: {}
+    entity_id: input_boolean.vacuum_standby
+    service: input_boolean.turn_on
+- id: '1583731434049'
+  alias: Vacuum - Run if everyone leaves
+  description: Run the vacuum when everyone leaves, but only if the input_boolean.vacuum_standby
+    switch is turned on.
+  trigger:
+  - entity_id: group.home_occupancy
+    for: 00:05:00
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data: {}
+    entity_id: vacuum.robovac
+    service: vacuum.start
+- id: '1583731526803'
+  alias: Vacuum - Disable standby when vacuum runs
+  description: This turns off the input_boolean.vacuum_standby switch when the vacuum
+    is ran.
+  trigger:
+  - entity_id: vacuum.robovac
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.vacuum_standby
+    service: input_boolean.turn_off
+- id: '1583732337980'
+  alias: Vacuum - Remind me to clean the dustbin
+  description: ''
+  trigger:
+  - entity_id: vacuum.robovac
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data:
+      message: The vacuum dustbin is full, please empty it.
+      notification_id: vacuum_dustbin_full
+      title: Vacuum Dustbin Full
+    service: persistent_notification.create

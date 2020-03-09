@@ -42,6 +42,8 @@ cover.serena_r_roller_shade:
 cover.serena_r_roller_shade_2:
   device_class: shade
 binary_sensor.front_door_contact:
+  friendly_name: Front door
   device_class: door
 binary_sensor.back_door_contact:
+  friendly_name: Back door
   device_class: door
