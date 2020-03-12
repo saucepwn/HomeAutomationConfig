@@ -538,12 +538,12 @@
       scene_name: Bright
     service: hue.hue_activate_scene
 - id: '1575326973689'
-  alias: Lights - Turn off bedroom after 10 minutes
+  alias: Lights - Turn off bedroom after inactivity
   description: Only after 10am when I'm presumably awake, but before sunset, turn
     off the bedroom lights if there is no motion for a period of time.
   trigger:
   - entity_id: binary_sensor.motion_sensor_motion
-    for: 00:10:00
+    for: 00:05:00
     platform: state
     to: 'off'
   condition:
@@ -680,15 +680,19 @@
   - condition: state
     entity_id: light.common_areas
     state: 'off'
-  - after: sunset
-    after_offset: +01:00:00
-    before: sunrise
-    before_offset: -01:00:00
-    condition: sun
+  - condition: or
+    conditions:
+    - after: sunset
+      before: sunrise
+      before_offset: -01:00:00
+      condition: sun
+    - after: sunset
+      after_offset: +01:00:00
+      condition: sun
   action:
   - alias: ''
     data:
-      brightness: 12
+      brightness: 25
       entity_id:
       - light.under_cabinet_stove
       - light.under_cabinet_sink
