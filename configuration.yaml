@@ -313,6 +313,10 @@ sensor:
           {%- if not is_state('switch.air_purifier', 'unavailable') %}
             true
           {%- endif %}
+  - platform: waqi
+    token: !secret waqi_api_key
+    locations:
+      - seattle
 
 history:
   exclude:
