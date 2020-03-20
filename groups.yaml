@@ -1,5 +1,5 @@
 home_occupancy:
-  name: Home Occupancy (any person)
+  name: Everyone
   entities:
     - person.raspberrypisauce
     - person.sean

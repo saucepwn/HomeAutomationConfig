@@ -286,6 +286,49 @@ sensor:
       - sensor.motion_sensor_temperature_measurement_2
   - platform: template
     sensors:
+      # Bedroom fan speed
+      fan_speed_bedroom:
+        friendly_name: Bedroom fan speed
+        value_template: "{{ state_attr('fan.bedroom_fan', 'speed') | lower }}"
+        icon_template: >-
+          {% if is_state('fan.bedroom_fan', 'off') %}
+            mdi:circle-off-outline
+          {% elif is_state_attr('fan.bedroom_fan', 'speed', 'low') %}
+            mdi:speedometer-slow
+          {% elif is_state_attr('fan.bedroom_fan', 'speed', 'medium') %}
+            mdi:speedometer-medium
+          {% else %}
+            mdi:speedometer
+          {% endif %}
+        availability_template: >-
+          {%- if not is_state('fan.bedroom_fan', 'unavailable') %}
+            true
+          {%- endif %}
+      
+      # Guest bedroom fan speed
+      fan_speed_guest_bedroom:
+        friendly_name: Guest bedroom fan speed
+        value_template: "{{ state_attr('fan.guest_bedroom_fan', 'speed') | lower }}"
+        icon_template: >-
+          {% if is_state('fan.guest_bedroom_fan', 'off') %}
+            mdi:circle-off-outline
+          {% elif is_state_attr('fan.guest_bedroom_fan', 'speed', 'low') %}
+            mdi:speedometer-slow
+          {% elif is_state_attr('fan.guest_bedroom_fan', 'speed', 'medium') %}
+            mdi:speedometer-medium
+          {% else %}
+            mdi:speedometer
+          {% endif %}
+        availability_template: >-
+          {%- if not is_state('fan.guest_bedroom_fan', 'unavailable') %}
+            true
+          {%- endif %}
+      
+      # Living room fan state with proper capitalization
+      fan_speed_living_room:
+        friendly_name: Living room fan speed
+        value_template: "{{ states('input_boolean.living_room_fan_ir') | lower }}"
+      
       # Show air purifier low/med/high fan speed
       air_purifier_with_speed:
         friendly_name: Air purifier speed
