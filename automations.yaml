@@ -221,7 +221,7 @@
   alias: Bedroom Fan - High [79+)
   trigger:
   - above: '78.9'
-    entity_id: binary_sensor.motion_sensor_motion_2
+    entity_id: binary_sensor.guest_bedroom_temperature_motion
     platform: numeric_state
   - entity_id: person.raspberrypisauce
     platform: state
@@ -382,7 +382,7 @@
   alias: Lights - Turn on guest bedroom with motion
   description: ''
   trigger:
-  - entity_id: binary_sensor.motion_sensor_motion_2
+  - entity_id: binary_sensor.guest_bedroom_temperature_motion
     platform: state
     to: 'on'
   condition:
@@ -402,7 +402,7 @@
   alias: Lights - Turn off guest bedroom after inactivity
   description: ''
   trigger:
-  - entity_id: binary_sensor.motion_sensor_motion_2
+  - entity_id: binary_sensor.guest_bedroom_temperature_motion
     for: 0:{{ states.light.guest_bedroom_1.attributes.brightness|int // 25 }}:00
     platform: state
     to: 'off'
@@ -542,7 +542,7 @@
   description: Only after 10am when I'm presumably awake, but before sunset, turn
     off the bedroom lights if there is no motion for a period of time.
   trigger:
-  - entity_id: binary_sensor.motion_sensor_motion
+  - entity_id: binary_sensor.bedroom_temperature_motion
     for: 00:05:00
     platform: state
     to: 'off'
@@ -572,7 +572,7 @@
   description: During daylight hours, turn on the bedroom lights to match the hallway
     if there's motion.
   trigger:
-  - entity_id: binary_sensor.motion_sensor_motion
+  - entity_id: binary_sensor.bedroom_temperature_motion
     platform: state
     to: 'on'
   condition:
