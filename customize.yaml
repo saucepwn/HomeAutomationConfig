@@ -6,8 +6,6 @@ light.discoagroupeven_2:
   hidden: true
 light.discoagroupodd:
   hidden: true
-binary_sensor.garrett_padera_s_pixel_perfect_presence:
-  hidden: true
 sensor.condo_temperature:
   icon: mdi:thermometer
   device_class: temperature
@@ -31,19 +29,19 @@ automation.heat_turn_off_when_condo_is_72f_or_above:
   icon: mdi:fire
 automation.heat_turn_on_if_home_and_condo_is_below_71f:
   icon: mdi:fire
-sensor.guest_bedroom_temperature_temperature_measurement:
+sensor.guest_bedroom_temperature:
   friendly_name: Guest bedroom temperature
   icon: mdi:bed-double
-sensor.bedroom_temperature_temperature_measurement:
+sensor.bedroom_temperature:
   friendly_name: Bedroom temperature
   icon: mdi:bed-king
 cover.serena_r_roller_shade:
   device_class: shade
 cover.serena_r_roller_shade_2:
   device_class: shade
-binary_sensor.front_door_contact:
+binary_sensor.front_door_open:
   friendly_name: Front door
   device_class: door
-binary_sensor.back_door_contact:
+binary_sensor.back_door_open:
   friendly_name: Back door
   device_class: door

@@ -173,7 +173,7 @@
   trigger:
   - above: '71.9'
     below: '74.1'
-    entity_id: sensor.motion_sensor_temperature_measurement_2
+    entity_id: sensor.bedroom_temperature
     platform: numeric_state
   - entity_id: person.raspberrypisauce
     platform: state
@@ -182,7 +182,7 @@
   - above: '71.9'
     below: '74.1'
     condition: numeric_state
-    entity_id: sensor.motion_sensor_temperature_measurement_2
+    entity_id: sensor.bedroom_temperature
   - condition: state
     entity_id: person.raspberrypisauce
     state: home
@@ -199,7 +199,7 @@
   trigger:
   - above: '74.9'
     below: '78.1'
-    entity_id: sensor.motion_sensor_temperature_measurement_2
+    entity_id: sensor.bedroom_temperature
     platform: numeric_state
   - entity_id: person.raspberrypisauce
     platform: state
@@ -208,7 +208,7 @@
   - above: '74.9'
     below: '78.1'
     condition: numeric_state
-    entity_id: sensor.motion_sensor_temperature_measurement_2
+    entity_id: sensor.bedroom_temperature
   - condition: state
     entity_id: person.raspberrypisauce
     state: home
@@ -221,7 +221,7 @@
   alias: Bedroom Fan - High [79+)
   trigger:
   - above: '78.9'
-    entity_id: binary_sensor.guest_bedroom_temperature_motion
+    entity_id: sensor.bedroom_temperature
     platform: numeric_state
   - entity_id: person.raspberrypisauce
     platform: state
@@ -229,7 +229,7 @@
   condition:
   - above: '78.9'
     condition: numeric_state
-    entity_id: sensor.motion_sensor_temperature_measurement_2
+    entity_id: sensor.bedroom_temperature
   - condition: state
     entity_id: person.raspberrypisauce
     state: home
@@ -268,14 +268,13 @@
       - fan.bedroom_fan
       - fan.guest_bedroom_fan
     service: fan.turn_off
-  - device_id: 8193bacd045943e988af7559857162da
+  - device_id: bb801a96c4d24f4ab6457ed8f6598cae
     domain: switch
     entity_id: switch.living_room_heater
     type: turn_off
-  - device_id: 8f999104ce6a43cf8389582f37e8181d
-    domain: switch
-    entity_id: switch.living_room_fan
-    type: turn_off
+  - data: {}
+    entity_id: input_boolean.living_room_fan_ir
+    service: input_boolean.turn_off
 - id: '1570854881416'
   alias: Lock - Lock the front door if closed when away
   trigger:
@@ -288,11 +287,10 @@
     entity_id: lock.front_door_lock
     state: unlocked
   - condition: state
-    entity_id: binary_sensor.front_door_contact
+    entity_id: binary_sensor.front_door_open
     state: 'off'
   action:
-  - data:
-      entity_id: lock.front_door_lock
+  - entity_id: lock.front_door_lock
     service: lock.lock
   - data:
       message: Looks like you left the front door unlocked. I've locked it for you.
@@ -310,7 +308,7 @@
     entity_id: lock.back_door_lock
     state: unlocked
   - condition: state
-    entity_id: binary_sensor.back_door_contact
+    entity_id: binary_sensor.back_door_open
     state: 'off'
   action:
   - data:
@@ -329,7 +327,7 @@
     to: not_home
   condition:
   - condition: state
-    entity_id: binary_sensor.front_door_contact
+    entity_id: binary_sensor.front_door_open
     state: 'on'
   action:
   - data:
@@ -345,7 +343,7 @@
     to: not_home
   condition:
   - condition: state
-    entity_id: binary_sensor.back_door_contact
+    entity_id: binary_sensor.back_door_open
     state: 'on'
   action:
   - data:
@@ -382,7 +380,7 @@
   alias: Lights - Turn on guest bedroom with motion
   description: ''
   trigger:
-  - entity_id: binary_sensor.guest_bedroom_temperature_motion
+  - entity_id: binary_sensor.guest_bedroom_motion
     platform: state
     to: 'on'
   condition:
@@ -402,7 +400,7 @@
   alias: Lights - Turn off guest bedroom after inactivity
   description: ''
   trigger:
-  - entity_id: binary_sensor.guest_bedroom_temperature_motion
+  - entity_id: binary_sensor.guest_bedroom_motion
     for: 0:{{ states.light.guest_bedroom_1.attributes.brightness|int // 25 }}:00
     platform: state
     to: 'off'
@@ -467,12 +465,12 @@
     to: 'on'
   condition: []
   action:
-  - device_id: c98fbe1c32a04977981d4ed626e2432f
+  - device_id: 26d8786be4814d2287f8d6e23a710031
     domain: switch
     entity_id: switch.living_room_perimeter_lights
     type: turn_off
   - delay: 00:00:02
-  - device_id: c98fbe1c32a04977981d4ed626e2432f
+  - device_id: 26d8786be4814d2287f8d6e23a710031
     domain: switch
     entity_id: switch.living_room_perimeter_lights
     type: turn_on
@@ -485,7 +483,7 @@
     to: not_home
   condition: []
   action:
-  - device_id: c98fbe1c32a04977981d4ed626e2432f
+  - device_id: 26d8786be4814d2287f8d6e23a710031
     domain: switch
     entity_id: switch.living_room_perimeter_lights
     type: turn_off
@@ -507,7 +505,7 @@
     after_offset: +00:10:00
     condition: sun
   action:
-  - device_id: c98fbe1c32a04977981d4ed626e2432f
+  - device_id: 26d8786be4814d2287f8d6e23a710031
     domain: switch
     entity_id: switch.living_room_perimeter_lights
     type: turn_on
@@ -542,7 +540,7 @@
   description: Only after 10am when I'm presumably awake, but before sunset, turn
     off the bedroom lights if there is no motion for a period of time.
   trigger:
-  - entity_id: binary_sensor.bedroom_temperature_motion
+  - entity_id: binary_sensor.bedroom_motion
     for: 00:05:00
     platform: state
     to: 'off'
@@ -572,7 +570,7 @@
   description: During daylight hours, turn on the bedroom lights to match the hallway
     if there's motion.
   trigger:
-  - entity_id: binary_sensor.bedroom_temperature_motion
+  - entity_id: binary_sensor.bedroom_motion
     platform: state
     to: 'on'
   condition:
@@ -609,7 +607,7 @@
     condition: numeric_state
     entity_id: sensor.condo_temperature
   action:
-  - device_id: 8193bacd045943e988af7559857162da
+  - device_id: bb801a96c4d24f4ab6457ed8f6598cae
     domain: switch
     entity_id: switch.living_room_heater
     type: turn_on
@@ -622,7 +620,7 @@
     platform: numeric_state
   condition: []
   action:
-  - device_id: 8193bacd045943e988af7559857162da
+  - device_id: bb801a96c4d24f4ab6457ed8f6598cae
     domain: switch
     entity_id: switch.living_room_heater
     type: turn_off

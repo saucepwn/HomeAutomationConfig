@@ -56,6 +56,7 @@ wake_on_lan:
 # Log to MariaDB
 recorder:
   db_url: !secret mariadb_connection_string
+  purge_keep_days: 7
 
 # Google Assistant
 google_assistant:
@@ -109,7 +110,7 @@ google_assistant:
       aliases:
         - INSIDE_TEMPERATURE
         - TEMPERATURE_INSIDE
-    sensor.motion_sensor_temperature_measurement_2:
+    sensor.bedroom_temperature:
       expose: true
     switch.air_purifier:
       expose: true
@@ -148,9 +149,9 @@ switch:
         icon_template: >-
           {% if is_state('switch.air_purifier', 'off') %}
             mdi:circle-off-outline
-          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 6 %}
+          {% elif states.sensor.air_purifier_power.state|float < 6 %}
             mdi:speedometer-slow
-          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 39 %}
+          {% elif states.sensor.air_purifier_power.state|float < 39 %}
             mdi:speedometer-medium
           {% else %}
             mdi:speedometer
@@ -236,7 +237,7 @@ alert:
     title: Leak Detected
     message: Water leak detected in the bathroom
     done_message: Bathroom is back to normal
-    entity_id: binary_sensor.bathroom_leak_sensor_water
+    entity_id: binary_sensor.bathroom_leak_sensor
     state: 'on'
     repeat:
       - 5
@@ -251,7 +252,7 @@ alert:
     title: Leak Detected
     message: Water leak detected in the kitchen
     done_message: Kitchen is back to normal
-    entity_id: binary_sensor.kitchen_leak_sensor_water
+    entity_id: binary_sensor.kitchen_leak_sensor
     state: 'on'
     repeat:
       - 5
@@ -282,11 +283,11 @@ sensor:
     type: mean
     name: Condo temperature
     entity_ids:
-      - sensor.back_door_temperature_measurement
-      - sensor.front_door_temperature_measurement
-      - sensor.hallway_temperature_measurement
-      - sensor.motion_sensor_temperature_measurement
-      - sensor.motion_sensor_temperature_measurement_2
+      - sensor.back_door_temperature
+      - sensor.front_door_temperature
+      - sensor.hallway_temperature
+      - sensor.bedroom_temperature
+      - sensor.guest_bedroom_temperature
   - platform: template
     sensors:
       # Bedroom fan speed
@@ -338,9 +339,9 @@ sensor:
         value_template: >-
           {% if is_state('switch.air_purifier', 'off') %}
             off
-          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 6 %}
+          {% elif states.sensor.air_purifier_power.state|float < 6 %}
             low
-          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 39 %}
+          {% elif states.sensor.air_purifier_power.state|float < 39 %}
             medium
           {% else %}
             high
@@ -348,9 +349,9 @@ sensor:
         icon_template: >-
           {% if is_state('switch.air_purifier', 'off') %}
             mdi:circle-off-outline
-          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 6 %}
+          {% elif states.sensor.air_purifier_power.state|float < 6 %}
             mdi:speedometer-slow
-          {% elif state_attr('switch.air_purifier', 'current_power_w')|float < 39 %}
+          {% elif states.sensor.air_purifier_power.state|float < 39 %}
             mdi:speedometer-medium
           {% else %}
             mdi:speedometer
