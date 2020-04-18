@@ -360,6 +360,18 @@ sensor:
           {%- if not is_state('switch.air_purifier', 'unavailable') %}
             true
           {%- endif %}
+          
+      security_status:
+        value_template: >-
+          {% if is_state("group.doors", "on") %}
+            Open
+          {%- elif is_state("group.locks", "unlocked") %}
+            Unlocked
+          {%- elif is_state("group.covers", "open") %}
+            Visible
+          {%- else %}
+            Secure
+          {%- endif %}
   - platform: waqi
     token: !secret waqi_api_key
     locations:
@@ -370,6 +382,7 @@ history:
     domains:
       - automation
       - media_player
+      - script
     entities:
       - binary_sensor.garrett_padera_s_pixel_perfect_presence
       - binary_sensor.updater

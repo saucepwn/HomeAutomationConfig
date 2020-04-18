@@ -4,3 +4,20 @@ home_occupancy:
     - person.raspberrypisauce
     - person.sean
     - person.qifan
+    
+locks:
+  all: true
+  entities:
+    - lock.front_door_lock
+    - lock.back_door_lock
+    
+shades:
+  all: true
+  entities:
+    - cover.serena_r_roller_shade
+    - cover.serena_r_roller_shade_2
+    
+doors:
+  entities:
+    - binary_sensor.front_door_open
+    - binary_sensor.back_door_open
