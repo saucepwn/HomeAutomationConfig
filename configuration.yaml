@@ -369,7 +369,7 @@ sensor:
             Open
           {%- elif is_state("group.locks", "unlocked") %}
             Unlocked
-          {%- elif is_state("group.covers", "open") %}
+          {%- elif is_state("group.shades", "open") %}
             Visible
           {%- else %}
             Secure

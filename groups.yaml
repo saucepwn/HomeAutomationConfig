@@ -12,7 +12,6 @@ locks:
     - lock.back_door_lock
     
 shades:
-  all: true
   entities:
     - cover.serena_r_roller_shade
     - cover.serena_r_roller_shade_2

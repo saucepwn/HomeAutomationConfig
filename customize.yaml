@@ -45,3 +45,5 @@ binary_sensor.front_door_open:
 binary_sensor.back_door_open:
   friendly_name: Back door
   device_class: door
+binary_sensor.living_room_window:
+  device_class: window

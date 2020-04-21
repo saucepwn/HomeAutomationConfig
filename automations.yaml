@@ -51,16 +51,17 @@
   alias: Shades - Close after sunset
   trigger:
   - event: sunset
-    offset: +00:10:00
+    offset: +00:05:00
     platform: sun
   condition: []
   action:
   - data:
       entity_id: cover.serena_r_roller_shade
     service: cover.close_cover
-  - data:
+  - data_template:
       entity_id: cover.serena_r_roller_shade_2
-      position: 0
+      position: "{% if is_state(\"binary_sensor.living_room_window\", \"on\") %}\n\
+        \  33\n{% else %}\n  0\n{% endif %}"
     service: cover.set_cover_position
 - id: '1568834500654'
   alias: Computer - turn on weekday evenings when I come home
@@ -847,3 +848,19 @@
       notification_id: vacuum_dustbin_full
       title: Vacuum Dustbin Full
     service: persistent_notification.create
+- id: '1587441223342'
+  alias: Shades - Provide air gap if window is open
+  description: ''
+  trigger:
+  - entity_id: cover.serena_r_roller_shade_2
+    platform: state
+    to: closed
+  condition:
+  - condition: state
+    entity_id: binary_sensor.living_room_window
+    state: 'on'
+  action:
+  - data:
+      position: 33
+    entity_id: cover.serena_r_roller_shade_2
+    service: cover.set_cover_position
