@@ -234,3 +234,11 @@ lighting_scene_dinner:
       group_name: Common areas & bedroom
       scene_name: Dinner
     service: hue.hue_activate_scene
+lighting_scene_morning:
+  alias: 'Lighting: Scene - Morning (bedroom)'
+  icon: mdi:weather-sunset-up
+  sequence:
+  - data:
+      group_name: Master bedroom
+      scene_name: Morning
+    service: hue.hue_activate_scene

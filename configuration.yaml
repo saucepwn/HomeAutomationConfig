@@ -98,6 +98,15 @@ google_assistant:
     script.1572070274974:
       expose: true
       name: Daytime lights
+    script.lighting_scene_movie:
+      expose: true
+      name: Movie lights
+    script.lighting_scene_dinner:
+      expose: true
+      name: Dinner lights
+    script.lighting_scene_morning:
+      expose: true
+      name: Morning lights
     script.1572070321226:
       expose: true
       name: Afternoon lights
