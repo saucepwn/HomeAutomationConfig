@@ -1,4 +1,6 @@
 noctis:  
+  # Background image
+  lovelace-background: 'center / cover no-repeat url("/local/dark_bg.jpg") fixed'
 
   # Fonts
   primary-font-family: 'Raleway,sans-serif'
@@ -22,14 +24,15 @@ noctis:
   
   # Main Colors
   app-header-background-color: 'var(--background-color)'
-  accent-color: '#1A89F5'
+  accent-color: '#b0b033'
   accent-medium-color: 'var(--accent-color)'
+  active-entity-color: '#ffff3b'
 
   # Background
   background-color: '#242e42'
   primary-background-color: 'var(--background-color)'
-  background-color-2: '#20293c' 
-  secondary-background-color: 'none'
+  background-color-2: '#121826' 
+  secondary-background-color: '#222b3d'
   
   # Card
   card-background-color: 'var(--paper-card-background-color)'
@@ -40,7 +43,7 @@ noctis:
   
   # Icons
   paper-item-icon-color: 'var(--text-color)'
-  paper-item-icon-active-color: 'var(--accent-color)'
+  paper-item-icon-active-color: 'var(--active-entity-color)'
   
   # Sidebar
   paper-listbox-background-color: 'var(--background-color)'
@@ -57,18 +60,18 @@ noctis:
   paper-slider-container-color: 'var(--border-color)'
 
   # Toggle:
-  paper-toggle-button-checked-bar-color: 'var(--accent-color)'
+  paper-toggle-button-checked-bar-color: 'var(--active-entity-color)'
   mdc-theme-primary: 'var(--accent-color)'
 
   # Switch
   switch-unchecked-color: '#70889e'
-  switch-checked-button-color: 'var(--accent-color)'
+  switch-checked-button-color: 'var(--active-entity-color)'
   switch-unchecked-track-color: 'var(--background-color-2)'
   switch-checked-track-color: 'var(--background-color-2)'
 
   # Popups
   more-info-header-background: 'var(--secondary-background-color)'
-  paper-dialog-background-color: 'rgba(47,59,82,0.4)'
+  paper-dialog-background-color: 'rgba(47,59,82,0.9)'
   
   
   # Custom Header
