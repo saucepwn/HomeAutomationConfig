@@ -218,3 +218,19 @@ living_room_fan_speed_cycle:
       device: Bedroom fan
       entity_id: remote.living_room
     service: remote.send_command
+lighting_scene_movie:
+  alias: 'Lighting: Scene - Movie'
+  icon: mdi:movie
+  sequence:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Movie
+    service: hue.hue_activate_scene
+lighting_scene_dinner:
+  alias: 'Lighting: Scene - Dinner'
+  icon: mdi:food
+  sequence:
+  - data:
+      group_name: Common areas & bedroom
+      scene_name: Dinner
+    service: hue.hue_activate_scene
