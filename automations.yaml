@@ -23,9 +23,10 @@
 - id: '1568831881438'
   alias: Outdoor lights - on at sunset
   trigger:
-  - event: sunset
-    offset: -00:30:00
-    platform: sun
+  - below: '10'
+    entity_id: sun.sun
+    platform: numeric_state
+    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
   condition: []
   action:
   - data:
@@ -50,9 +51,10 @@
 - id: '1568832400745'
   alias: Shades - Close after sunset
   trigger:
-  - event: sunset
-    offset: +00:05:00
-    platform: sun
+  - below: 2
+    entity_id: sun.sun
+    platform: numeric_state
+    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
   condition: []
   action:
   - data:
@@ -94,11 +96,12 @@
     platform: state
     to: unlocked
   condition:
-  - after: sunset
-    after_offset: -01:00:00
-    condition: sun
-  - after: '15:00:00'
-    before: '23:00:00'
+  - below: '15'
+    condition: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
+  - after: '14:30:00'
+    before: '22:00:00'
     condition: time
   - condition: state
     entity_id: light.living_room
@@ -656,9 +659,10 @@
   alias: Lights - Turn lights warm at sunset
   description: ''
   trigger:
-  - event: sunset
-    offset: -01:00:00
-    platform: sun
+  - below: 15
+    entity_id: sun.sun
+    platform: numeric_state
+    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
   condition:
   - condition: state
     entity_id: light.common_areas
