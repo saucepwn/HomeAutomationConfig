@@ -167,11 +167,17 @@
   - condition: state
     entity_id: group.home_occupancy
     state: home
+  - condition: state
+    entity_id: input_boolean.shades_closed
+    state: 'on'
   action:
   - data:
       group_name: Common areas & bedroom
       scene_name: Afternoon
     service: hue.hue_activate_scene
+  - data: {}
+    entity_id: input_boolean.shades_closed
+    service: input_boolean.turn_off
 - id: '1570429088603'
   alias: Bedroom Fan - Low [72 - 74]
   trigger:
@@ -656,7 +662,8 @@
   alias: Lights - Turn lights warm at sunset
   description: ''
   trigger:
-  - below: 15
+  - above: '14'
+    below: '15'
     entity_id: sun.sun
     platform: numeric_state
     value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
@@ -865,3 +872,17 @@
       position: 33
     entity_id: cover.serena_r_roller_shade_2
     service: cover.set_cover_position
+- id: '1588569966926'
+  alias: Shades - Keep closed boolean in sync
+  description: ''
+  trigger:
+  - device_id: 0d8f7da8e28e432fb63ff0e61b6c21ab
+    domain: cover
+    entity_id: cover.serena_r_roller_shade
+    platform: device
+    type: closed
+  condition: []
+  action:
+  - data: {}
+    entity_id: input_boolean.shades_closed
+    service: input_boolean.turn_on

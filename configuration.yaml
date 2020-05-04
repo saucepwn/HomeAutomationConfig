@@ -287,6 +287,9 @@ input_boolean:
     name: Vacuum standby
     initial: off
     icon: mdi:robot-vacuum
+  shades_closed:
+    name: Shades closed
+    initial: on
 
 sensor:
   # Average condo temperature sensor
