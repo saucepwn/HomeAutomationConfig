@@ -23,7 +23,7 @@
 - id: '1568831881438'
   alias: Outdoor lights - on at sunset
   trigger:
-  - below: '10'
+  - below: '6'
     entity_id: sun.sun
     platform: numeric_state
     value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
@@ -51,7 +51,7 @@
 - id: '1568832400745'
   alias: Shades - Close after sunset
   trigger:
-  - below: 2
+  - below: '1'
     entity_id: sun.sun
     platform: numeric_state
     value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
@@ -571,22 +571,18 @@
   - service: script.living_room_fan_on
 - id: '1575750135185'
   alias: Lights - Turn on bedroom lights with motion
-  description: During daylight hours, turn on the bedroom lights to match the hallway
-    if there's motion.
+  description: ''
   trigger:
   - entity_id: binary_sensor.bedroom_motion
     platform: state
     to: 'on'
   condition:
-  - before: sunset
-    before_offset: +01:00:00
-    condition: sun
   - condition: state
     entity_id: light.master_bedroom
     state: 'off'
   - condition: state
-    entity_id: cover.serena_r_roller_shade
-    state: open
+    entity_id: light.hallway
+    state: 'on'
   action:
   - data_template:
       brightness: '{{ states.light.hallway_1.attributes.brightness }}'
@@ -641,9 +637,10 @@
     platform: state
     to: unlocked
   condition:
-  - before: sunset
-    before_offset: -01:00:00
-    condition: sun
+  - above: '15'
+    condition: numeric_state
+    entity_id: sun.sun
+    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
   - condition: state
     entity_id: cover.serena_r_roller_shade
     state: open
