@@ -16,5 +16,6 @@
 # Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
 ip_bans.yaml
 secrets.yaml
+fitbit.conf
 known_devices.yaml
 google_assistant_service_account.json

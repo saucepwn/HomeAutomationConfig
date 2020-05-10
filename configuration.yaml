@@ -390,6 +390,25 @@ sensor:
     token: !secret waqi_api_key
     locations:
       - seattle
+#  - platform: fitbit
+#    clock_format: 12H
+#    unit_system: en_US
+#    monitored_resources:
+#      - "body/weight"
+#      - "activities/activityCalories"
+#      - "activities/calories"
+#      - "activities/caloriesBMR"
+#      - "activities/distance"
+#      - "activities/heart"
+#      - "activities/minutesFairlyActive"
+#      - "activities/minutesLightlyActive"
+#      - "activities/minutesSedentary"
+#      - "activities/minutesVeryActive"
+#      - "activities/steps"
+#      - "body/bmi"
+#      - "body/fat"
+#      - "body/weight"
+#      - "devices/battery"
 
 history:
   exclude:

@@ -584,11 +584,16 @@
     to: 'on'
   condition:
   - condition: state
-    entity_id: light.master_bedroom
-    state: 'off'
-  - condition: state
     entity_id: light.hallway
     state: 'on'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: light.master_bedroom
+      state: 'off'
+    - condition: template
+      value_template: '{{ states.light.master_bedroom_1.attributes.brightness > states.light.hallway_1.attributes.brightness
+        }}'
   action:
   - data_template:
       brightness: '{{ states.light.hallway_1.attributes.brightness }}'
