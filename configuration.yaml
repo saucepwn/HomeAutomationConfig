@@ -109,6 +109,9 @@ google_assistant:
     script.lighting_scene_dinner:
       expose: true
       name: Dinner lights
+    script.lighting_scene_bedtime:
+      expose: true
+      name: Bedtime lights
     script.lighting_scene_morning:
       expose: true
       name: Morning lights
