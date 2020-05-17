@@ -7,6 +7,7 @@ surround_sound_power:
       command:
       - PowerToggle
       device: Surround Sound
+
 surround_sound_volume_up:
   alias: Volume Up
   sequence:
@@ -16,6 +17,7 @@ surround_sound_volume_up:
       command:
       - VolumeUp
       device: Surround Sound
+
 surround_sound_volume_down:
   alias: Volume Down
   sequence:
@@ -25,6 +27,7 @@ surround_sound_volume_down:
       command:
       - VolumeDown
       device: Surround Sound
+
 surround_sound_mute:
   alias: Mute
   sequence:
@@ -34,6 +37,7 @@ surround_sound_mute:
       command:
       - Mute
       device: Surround Sound
+
 tv_power_on:
   alias: Turn On
   icon: mdi:power-on
@@ -44,6 +48,7 @@ tv_power_on:
       command:
       - PowerOn
       device: TV
+
 tv_power_off:
   alias: Turn Off
   icon: mdi:power-off
@@ -54,6 +59,7 @@ tv_power_off:
       command:
       - PowerOff
       device: TV
+
 tv_channel_up:
   alias: Channel Up
   icon: mdi:arrow-up-bold-circle-outline
@@ -64,6 +70,7 @@ tv_channel_up:
       command:
       - ChannelUp
       device: TV
+
 tv_channel_down:
   alias: Channel Down
   icon: mdi:arrow-down-bold-circle-outline
@@ -74,6 +81,7 @@ tv_channel_down:
       command:
       - ChannelDown
       device: TV
+
 tv_input_tv:
   alias: Input TV
   icon: mdi:television-classic
@@ -84,6 +92,7 @@ tv_input_tv:
       command:
       - InputTv
       device: TV
+
 tv_input_chromecast:
   alias: Input Chromecast
   icon: mdi:television-play
@@ -94,6 +103,7 @@ tv_input_chromecast:
       command:
       - InputHdmi1
       device: TV
+
 tv_channel_komo:
   alias: 4 - KOMO (ABC)
   icon: mdi:antenna
@@ -105,6 +115,7 @@ tv_channel_komo:
       - 4
       - OK
       device: TV
+
 tv_channel_king:
   alias: 5 - KING (NBC)
   icon: mdi:antenna
@@ -116,6 +127,7 @@ tv_channel_king:
       - 5
       - OK
       device: TV
+
 tv_channel_kiro:
   alias: 7 - KIRO (CBS)
   icon: mdi:antenna
@@ -127,6 +139,7 @@ tv_channel_kiro:
       - 7
       - OK
       device: TV
+
 tv_channel_kcpq:
   alias: 13 - KCPQ (FOX)
   icon: mdi:antenna
@@ -139,6 +152,7 @@ tv_channel_kcpq:
       - 3
       - OK
       device: TV
+
 tv_channel_kong:
   alias: 16 - KONG
   icon: mdi:antenna
@@ -151,6 +165,7 @@ tv_channel_kong:
       - 6
       - OK
       device: TV
+
 living_room_fan_on:
   alias: Living Room Fan
   sequence:
@@ -168,6 +183,7 @@ living_room_fan_on:
       command:
       - Oscillation
       device: Bedroom fan
+
 living_room_fan_speed_cycle:
   alias: Living Room Fan - Speed
   sequence:
@@ -177,38 +193,17 @@ living_room_fan_speed_cycle:
       command:
       - Speed
       device: Bedroom fan
-'1572070210780':
-  alias: 'Lighting: Scene - Evening'
-  icon: mdi:weather-night-partly-cloudy
-  sequence:
-  - data:
-      group_name: Common areas & bedroom
-      scene_name: Evening
-    service: hue.hue_activate_scene
-'1572070274974':
-  alias: 'Lighting: Scene - Daytime'
-  icon: mdi:weather-sunny
-  sequence:
-  - data:
-      group_name: Common areas
-      scene_name: Concentrate
-    service: hue.hue_activate_scene
-'1572070321226':
-  alias: 'Lighting: Scene - Bright Evening'
-  icon: mdi:weather-sunset
-  sequence:
-  - data:
-      group_name: Common areas & bedroom
-      scene_name: Bright
-    service: hue.hue_activate_scene
+
 '1572331520718':
   alias: 'Lighting: Scene - Nightlights (whole Condo)'
   icon: mdi:weather-night
   sequence:
-  - data:
+  - service: script.turn_off_auto_lights
+  - service: hue.hue_activate_scene
+    data:
       group_name: Common areas & bedroom
       scene_name: Real Nightlight
-    service: hue.hue_activate_scene
+
 '1575748464791':
   alias: Living Room Fan - Ion
   sequence:
@@ -218,27 +213,63 @@ living_room_fan_speed_cycle:
       device: Bedroom fan
       entity_id: remote.living_room
     service: remote.send_command
+
 lighting_scene_movie:
   alias: 'Lighting: Scene - Movie'
   icon: mdi:movie
   sequence:
-  - data:
+  - service: script.turn_off_auto_lights
+  - service: hue.hue_activate_scene
+    data:
       group_name: Common areas & bedroom
       scene_name: Movie
-    service: hue.hue_activate_scene
+
 lighting_scene_dinner:
   alias: 'Lighting: Scene - Dinner'
   icon: mdi:food
   sequence:
-  - data:
+  - service: script.turn_off_auto_lights
+  - service: hue.hue_activate_scene
+    data:
       group_name: Common areas & bedroom
       scene_name: Dinner
-    service: hue.hue_activate_scene
+
 lighting_scene_morning:
   alias: 'Lighting: Scene - Morning (bedroom)'
   icon: mdi:weather-sunset-up
   sequence:
-  - data:
+  - service: script.turn_off_auto_lights
+  - service: hue.hue_activate_scene
+    data:
       group_name: Master bedroom
       scene_name: Morning
-    service: hue.hue_activate_scene
+
+lighting_scene_bedtime:
+  alias: 'Lighting: Scene - Bedtime'
+  icon: mdi:sleep
+  sequence:
+  - service: script.turn_off_auto_lights
+  - service: hue.hue_activate_scene
+    data:
+      group_name: Common areas & bedroom
+      scene_name: Bedtime lights
+
+turn_off_auto_lights:
+  alias: 'Lighting: Disable auto lights'
+  sequence:
+  - data:
+      entity_id:
+        - switch.circadian_lighting_common_areas_auto_lights
+        - switch.circadian_lighting_bedroom_auto_lights
+        - switch.circadian_lighting_guest_room_auto_lights
+    service: switch.turn_off
+
+turn_on_auto_lights:
+  alias: 'Lighting: Enable auto lights'
+  sequence:
+  - data:
+      entity_id:
+        - switch.circadian_lighting_common_areas_auto_lights
+        - switch.circadian_lighting_bedroom_auto_lights
+        - switch.circadian_lighting_guest_room_auto_lights
+    service: switch.turn_on

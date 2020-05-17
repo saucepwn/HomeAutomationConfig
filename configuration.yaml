@@ -8,7 +8,12 @@ homeassistant:
   customize: !include customize.yaml
   
 zha_map:
-  
+
+circadian_lighting:
+  max_colortemp: 5000
+  interval: 120
+  transition: 10
+
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 http:
   base_url: https://pisauce.duckdns.org:8123
@@ -107,12 +112,6 @@ google_assistant:
     script.lighting_scene_morning:
       expose: true
       name: Morning lights
-    script.1572070321226:
-      expose: true
-      name: Afternoon lights
-    script.1572070210780:
-      expose: true
-      name: Evening lights
     script.1572331520718:
       expose: true
       name: Night lights
@@ -151,6 +150,24 @@ switch:
     name: computer_wol
     host: 192.168.1.31
     broadcast_address: 192.168.1.255
+  - platform: circadian_lighting
+    name: Common Areas Auto Lights
+    min_brightness: 40
+    lights_ct:
+      - light.living_room
+      - light.dining_room
+      - light.kitchen
+      - light.hallway
+  - platform: circadian_lighting
+    name: Guest Room Auto Lights
+    min_brightness: 40
+    lights_ct:
+      - light.guest_bedroom
+  - platform: circadian_lighting
+    name: Bedroom Auto Lights
+    min_brightness: 40
+    lights_ct:
+      - light.master_bedroom
   - platform: template
     switches:
       # Show air purifier low/med/high fan speed
@@ -239,12 +256,12 @@ notify:
     name: all_devices
     services:
       - service: html5_anrdoid_mobile
-      - service: html5_desktop_home
+      - service: html5_desktop
     
-# Alerts
+# Alerts. These automatically announce over the Google Homes when triggered.
 alert:
   bathroom_leak_sensor_water:
-    name: bathroom_water_leak
+    name: Bathroom Water Leak
     title: Leak Detected
     message: Water leak detected in the bathroom
     done_message: Bathroom is back to normal
@@ -259,7 +276,7 @@ alert:
     notifiers:
       - all_devices
   kitchen_leak_sensor_water:
-    name: kitchen_water_leak
+    name: Kitchen Water Leak
     title: Leak Detected
     message: Water leak detected in the kitchen
     done_message: Kitchen is back to normal
@@ -279,6 +296,10 @@ input_boolean:
     name: Living Room Fan
     initial: off
     icon: mdi:fan
+  circadian:
+    name: Auto Lighting
+    initial: on
+    icon: mdi:white-balance-auto
   nightlight:
     name: Night light
     initial: off
