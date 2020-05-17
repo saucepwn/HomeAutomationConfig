@@ -82,58 +82,6 @@
   - data:
       entity_id: switch.computer
     service: switch.turn_on
-- id: '1569304361436'
-  alias: Lock - Turn on interior lights after sunset
-  description: If the door is unlocked after sunset, turn on all interior lights if
-    they're off.
-  trigger:
-  - entity_id: lock.back_door_lock
-    from: locked
-    platform: state
-    to: unlocked
-  - entity_id: lock.front_door_lock
-    from: locked
-    platform: state
-    to: unlocked
-  condition:
-  - below: '15'
-    condition: numeric_state
-    entity_id: sun.sun
-    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
-  - after: '14:30:00'
-    before: '22:00:00'
-    condition: time
-  - condition: state
-    entity_id: light.living_room
-    state: 'off'
-  action:
-  - data:
-      group_name: Common areas & bedroom
-      scene_name: Bright
-    service: hue.hue_activate_scene
-- id: '1569304972806'
-  alias: Night door unlock - turn on lights (after 11pm)
-  trigger:
-  - entity_id: lock.back_door_lock
-    from: locked
-    platform: state
-    to: unlocked
-  - entity_id: lock.front_door_lock
-    from: locked
-    platform: state
-    to: unlocked
-  condition:
-  - after: '23:00:01'
-    before: 02:00:00
-    condition: time
-  - condition: state
-    entity_id: light.living_room
-    state: 'off'
-  action:
-  - data:
-      group_name: Common areas & bedroom
-      scene_name: Evening
-    service: hue.hue_activate_scene
 - id: '1569996471447'
   alias: Shades - Open at 9:30am if I'm away
   trigger:
@@ -153,7 +101,7 @@
       - cover.serena_r_roller_shade_2
     service: cover.open_cover
 - id: '1570381389931'
-  alias: Shades - Turn on cool lights when shades open
+  alias: Shades - Turn on auto lights when shades open
   trigger:
   - entity_id: cover.serena_r_roller_shade
     platform: state
@@ -171,10 +119,7 @@
     entity_id: input_boolean.shades_closed
     state: 'on'
   action:
-  - data:
-      group_name: Common areas & bedroom
-      scene_name: Afternoon
-    service: hue.hue_activate_scene
+  - service: script.turn_on_auto_lights
   - data: {}
     entity_id: input_boolean.shades_closed
     service: input_boolean.turn_off
@@ -636,7 +581,7 @@
     entity_id: switch.living_room_heater
     type: turn_off
 - id: '1581621914254'
-  alias: Lock - Turn on interior lights during the day
+  alias: Lock - Turn on lights when unlocked
   description: ''
   trigger:
   - entity_id: lock.back_door_lock
@@ -648,39 +593,13 @@
     platform: state
     to: unlocked
   condition:
-  - above: '15'
-    condition: numeric_state
-    entity_id: sun.sun
-    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
-  - condition: state
-    entity_id: cover.serena_r_roller_shade
-    state: open
-  - condition: state
-    entity_id: light.living_room
-    state: 'off'
-  action:
-  - data:
-      group_name: Common areas
-      scene_name: Concentrate
-    service: hue.hue_activate_scene
-- id: '1581622934381'
-  alias: Lights - Turn lights warm at sunset
-  description: ''
-  trigger:
-  - above: '14'
-    below: '15'
-    entity_id: sun.sun
-    platform: numeric_state
-    value_template: '{{ state_attr(''sun.sun'', ''elevation'') }}'
-  condition:
   - condition: state
     entity_id: light.common_areas
-    state: 'on'
+    state: 'off'
   action:
-  - data:
-      group_name: Common areas & bedroom
-      scene_name: Bright
-    service: hue.hue_activate_scene
+  - data: {}
+    entity_id: light.common_areas
+    service: light.turn_on
 - id: '1581666777729'
   alias: Lights - Nightlight trigger
   description: ''

@@ -1,21 +1,25 @@
+# Group is set to "on" if *any* person is home
 home_occupancy:
-  name: Everyone
+  name: Anyone Home
   entities:
     - person.raspberrypisauce
     - person.sean
     - person.qifan
-    
+
+# Group is set to "on" if *all* locks are locked
 locks:
   all: true
   entities:
     - lock.front_door_lock
     - lock.back_door_lock
-    
+
+# Group is set to "on" if *any* shade is open
 shades:
   entities:
     - cover.serena_r_roller_shade
     - cover.serena_r_roller_shade_2
     
+# Group is set to "on" if *any* door is open
 doors:
   entities:
     - binary_sensor.front_door_open

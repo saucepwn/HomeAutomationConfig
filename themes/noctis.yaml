@@ -1,6 +1,7 @@
 noctis:  
   # Background image
-  lovelace-background: 'center / cover no-repeat url("/local/dark_bg.jpg") fixed'
+  # lovelace-background: 'center / cover no-repeat url("/local/dark_bg.jpg") fixed'
+  # Make the primarry background for this image #171717
 
   # Fonts
   primary-font-family: 'Raleway,sans-serif'
@@ -14,31 +15,31 @@ noctis:
   ha-card-header-font-family: "var(--primary-font-family)"
 
   # Text
-  text-color: '#ffffff' 
+  text-color: '#bdc1bc' 
   primary-text-color: 'var(--text-color)'
   text-primary-color: 'var(--text-color)'
   secondary-text-color: "#BAC0C6"
   text-medium-light-color: '#A0A2A8'
   text-medium-color: '#80828A' 
-  primary-color: 'none'
+  primary-color: '#6b98e1'
   
   # Main Colors
   app-header-background-color: 'var(--background-color)'
-  accent-color: '#b0b033'
+  accent-color: '#6b98e1'
   accent-medium-color: 'var(--accent-color)'
-  active-entity-color: '#ffff3b'
+  active-entity-color: '#5E8CD4'
 
   # Background
-  background-color: '#242e42'
+  background-color: '#171717'
   primary-background-color: 'var(--background-color)'
-  background-color-2: '#121826' 
-  secondary-background-color: '#222b3d'
+  background-color-2: '#000000' 
+  secondary-background-color: '#424242'
   
   # Card
   card-background-color: 'var(--paper-card-background-color)'
-  paper-card-background-color: 'rgba(47,59,82,0.6)'
-  ha-card-box-shadow: "3px 3px 13px -6px rgba(17,35,52,1)"
-  ha-card-border-radius: "5px"
+  paper-card-background-color: 'rgba(32,33,36,0.9)'
+  ha-card-box-shadow: "3px 3px 13px -3px rgba(0,0,0,1)"
+  ha-card-border-radius: '9px'
   border-color: 'none'
   
   # Icons
@@ -56,15 +57,16 @@ noctis:
   # Sliders
   paper-slider-knob-color: 'var(--accent-color)'
   paper-slider-pin-color: 'var(--background-color-2)'
-  paper-slider-active-color: 'var(--background-color-2)'
-  paper-slider-container-color: 'var(--border-color)'
+  paper-slider-active-color: 'var(--active-entity-color)' # Line to the left of the knob
+  paper-slider-secondary-color: '#6699cc' # Line to the right of the knob
+  round-slider-handle-color: 'var(--active-entity-color)'
 
   # Toggle:
   paper-toggle-button-checked-bar-color: 'var(--active-entity-color)'
   mdc-theme-primary: 'var(--accent-color)'
 
   # Switch
-  switch-unchecked-color: '#70889e'
+  switch-unchecked-color: '#969a9e'
   switch-checked-button-color: 'var(--active-entity-color)'
   switch-unchecked-track-color: 'var(--background-color-2)'
   switch-checked-track-color: 'var(--background-color-2)'
@@ -72,7 +74,10 @@ noctis:
   # Popups
   more-info-header-background: 'var(--secondary-background-color)'
   paper-dialog-background-color: 'rgba(47,59,82,0.9)'
+  #paper-dialog-border-radius: '9px'
   
+  # Badges
+  label-badge-red: '#447ebc'
   
   # Custom Header
   ch-background: 'var(--background-color)'
