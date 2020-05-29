@@ -741,7 +741,6 @@
     switch is turned on.
   trigger:
   - entity_id: group.home_occupancy
-    for: 00:05:00
     platform: state
     to: not_home
   condition:
@@ -810,3 +809,40 @@
   - data: {}
     entity_id: input_boolean.shades_closed
     service: input_boolean.turn_on
+- id: '1590734199166'
+  alias: Lights - Turn on kitchen lights with motion
+  description: ''
+  trigger:
+  - device_id: 3a15ae1b0bd34a36b3a9c3158f397a45
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    platform: device
+    type: motion
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.kitchen
+    service: light.turn_on
+- id: '1590734499576'
+  alias: Lights - Turn off kitchen after inactivity
+  description: ''
+  trigger:
+  - device_id: 3a15ae1b0bd34a36b3a9c3158f397a45
+    domain: binary_sensor
+    entity_id: binary_sensor.kitchen_motion
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    platform: device
+    type: no_motion
+  condition:
+  - condition: device
+    device_id: 0d8f7da8e28e432fb63ff0e61b6c21ab
+    domain: cover
+    entity_id: cover.serena_r_roller_shade
+    type: is_open
+  action:
+  - data: {}
+    entity_id: light.kitchen
+    service: light.turn_off

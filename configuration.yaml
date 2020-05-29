@@ -10,6 +10,7 @@ homeassistant:
 zha_map:
 
 circadian_lighting:
+  min_colortemp: 2250
   max_colortemp: 5000
   interval: 120
   transition: 10
@@ -321,7 +322,6 @@ sensor:
     type: mean
     name: Condo temperature
     entity_ids:
-      - sensor.back_door_temperature
       - sensor.front_door_temperature
       - sensor.hallway_temperature
       - sensor.bedroom_temperature
