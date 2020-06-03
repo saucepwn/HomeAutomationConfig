@@ -786,10 +786,21 @@
   - entity_id: cover.serena_r_roller_shade_2
     platform: state
     to: closed
+  - entity_id: binary_sensor.living_room_window
+    platform: state
+    to: 'on'
   condition:
   - condition: state
     entity_id: binary_sensor.living_room_window
     state: 'on'
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: cover.serena_r_roller_shade_2
+      state: closed
+    - below: '33'
+      condition: numeric_state
+      entity_id: cover.serena_r_roller_shade_2
   action:
   - data:
       position: 33
@@ -818,7 +829,10 @@
     entity_id: binary_sensor.kitchen_motion
     platform: device
     type: motion
-  condition: []
+  condition:
+  - condition: state
+    entity_id: light.kitchen
+    state: 'off'
   action:
   - data: {}
     entity_id: light.kitchen

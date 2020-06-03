@@ -64,7 +64,16 @@ wake_on_lan:
 # Log to MariaDB
 recorder:
   db_url: !secret mariadb_connection_string
-  purge_keep_days: 7
+  purge_keep_days: 3
+  purge_interval: 1
+  exclude:
+    domains:
+      - sun
+      - automation
+      - media_player
+      - script
+    entities:
+      - sensor.circadian_values
 
 # Google Assistant
 google_assistant:
@@ -326,6 +335,7 @@ sensor:
       - sensor.hallway_temperature
       - sensor.bedroom_temperature
       - sensor.guest_bedroom_temperature
+      - sensor.kitchen_temperature
   - platform: template
     sensors:
       # Bedroom fan speed
