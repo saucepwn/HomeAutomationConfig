@@ -604,22 +604,16 @@
   alias: Lights - Nightlight trigger
   description: ''
   trigger:
-  - entity_id: binary_sensor.hallway_motion
+  - entity_id: binary_sensor.kitchen_motion
     platform: state
     to: 'on'
   condition:
   - condition: state
-    entity_id: light.common_areas
+    entity_id: light.living_room
     state: 'off'
-  - condition: or
-    conditions:
-    - after: sunset
-      before: sunrise
-      before_offset: -01:00:00
-      condition: sun
-    - after: sunset
-      after_offset: +01:00:00
-      condition: sun
+  - after: sunset
+    after_offset: +01:00:00
+    condition: sun
   action:
   - alias: ''
     data:

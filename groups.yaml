@@ -5,6 +5,8 @@ home_occupancy:
     - person.raspberrypisauce
     - person.sean
     - person.qifan
+    - person.tyler
+    - person.melissa
 
 # Group is set to "on" if *all* locks are locked
 locks:

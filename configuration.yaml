@@ -9,6 +9,10 @@ homeassistant:
   
 zha_map:
 
+# Enable scenes configuration editor
+config:
+scene: !include scenes.yaml
+
 circadian_lighting:
   min_colortemp: 2250
   max_colortemp: 5000
@@ -74,6 +78,41 @@ recorder:
       - script
     entities:
       - sensor.circadian_values
+      - binary_sensor.garrett_padera_s_pixel_perfect_presence
+      - binary_sensor.front_door_motion
+      - binary_sensor.updater
+      - light.common_areas_bedroom
+      - light.dining_room_ceiling
+      - light.discoagroup
+      - light.discoagroupeven
+      - light.discoagroupeven_2
+      - light.discoagroupodd
+      - light.guest_bedroom_1
+      - light.guest_bedroom_2
+      - light.guest_bedroom_3
+      - light.guest_bedroom_4
+      - light.hallway_1
+      - light.hallway_2
+      - light.kitchen_1
+      - light.kitchen_2
+      - light.living_room_ceiling_1
+      - light.living_room_ceiling_2
+      - light.living_room_ceiling_3
+      - light.living_room_ceiling_4
+      - light.living_room_ceiling_5
+      - light.living_room_ceiling_6
+      - light.master_bedroom_1
+      - light.master_bedroom_2
+      - light.master_bedroom_3
+      - light.master_bedroom_4
+      - light.master_bedroom_left
+      - light.master_bedroom_right
+      - light.outside_front_door
+      - light.outside_summit
+      - light.under_cabinet_sink
+      - light.under_cabinet_sink_2
+      - light.under_cabinet_stove
+      - switch.computer_wol
 
 # Google Assistant
 google_assistant:
@@ -452,6 +491,7 @@ history:
       - script
     entities:
       - binary_sensor.garrett_padera_s_pixel_perfect_presence
+      - binary_sensor.front_door_motion
       - binary_sensor.updater
       - light.common_areas_bedroom
       - light.dining_room_ceiling

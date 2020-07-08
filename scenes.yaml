@@ -43,3 +43,48 @@
       xy_color:
       - 0.561
       - 0.404
+- id: '1594186496879'
+  name: Shades - Closed
+  entities:
+    cover.serena_r_roller_shade:
+      current_position: 0
+      device_class: shade
+      friendly_name: Large window shade
+      state: closed
+      supported_features: 7
+    cover.serena_r_roller_shade_2:
+      current_position: 0
+      device_class: shade
+      friendly_name: Small window shade
+      state: closed
+      supported_features: 7
+- id: '1594187322103'
+  name: Shades - Open
+  entities:
+    cover.serena_r_roller_shade:
+      current_position: 100
+      device_class: shade
+      friendly_name: Large window shade
+      state: open
+      supported_features: 7
+    cover.serena_r_roller_shade_2:
+      current_position: 100
+      device_class: shade
+      friendly_name: Small window shade
+      state: open
+      supported_features: 7
+- id: '1594188131829'
+  name: Shades - Halfway
+  entities:
+    cover.serena_r_roller_shade:
+      current_position: 49
+      device_class: shade
+      friendly_name: Large window shade
+      state: open
+      supported_features: 7
+    cover.serena_r_roller_shade_2:
+      current_position: 47
+      device_class: shade
+      friendly_name: Small window shade
+      state: open
+      supported_features: 7
