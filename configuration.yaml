@@ -370,7 +370,7 @@ sensor:
     type: mean
     name: Condo temperature
     entity_ids:
-      - sensor.front_door_temperature
+      - sensor.living_room_environment_temperature
       - sensor.hallway_temperature
       - sensor.bedroom_temperature
       - sensor.guest_bedroom_temperature

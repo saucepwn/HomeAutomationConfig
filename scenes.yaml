@@ -88,3 +88,18 @@
       friendly_name: Small window shade
       state: open
       supported_features: 7
+- id: '1594253837687'
+  name: Shades - 1/4 closed (sun shade)
+  entities:
+    cover.serena_r_roller_shade:
+      current_position: 72
+      device_class: shade
+      friendly_name: Large window shade
+      state: open
+      supported_features: 7
+    cover.serena_r_roller_shade_2:
+      current_position: 71
+      device_class: shade
+      friendly_name: Small window shade
+      state: open
+      supported_features: 7

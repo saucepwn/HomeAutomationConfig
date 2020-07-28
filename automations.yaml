@@ -555,6 +555,11 @@
   - below: '71'
     entity_id: sensor.condo_temperature
     platform: numeric_state
+  - device_id: 578e278119ef48c2886406ca72888a2a
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_window
+    platform: device
+    type: not_opened
   condition:
   - condition: state
     entity_id: group.home_occupancy
@@ -562,6 +567,11 @@
   - below: '71'
     condition: numeric_state
     entity_id: sensor.condo_temperature
+  - condition: device
+    device_id: 578e278119ef48c2886406ca72888a2a
+    domain: binary_sensor
+    entity_id: binary_sensor.living_room_window
+    type: is_not_open
   action:
   - device_id: bb801a96c4d24f4ab6457ed8f6598cae
     domain: switch
