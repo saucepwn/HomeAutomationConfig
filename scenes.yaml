@@ -103,3 +103,31 @@
       friendly_name: Small window shade
       state: open
       supported_features: 7
+- id: '1596319724896'
+  name: Nap (living room)
+  entities:
+    cover.serena_r_roller_shade:
+      current_position: 47
+      device_class: shade
+      friendly_name: Large window shade
+      state: open
+      supported_features: 7
+    cover.serena_r_roller_shade_2:
+      current_position: 45
+      device_class: shade
+      friendly_name: Small window shade
+      state: open
+      supported_features: 7
+    light.all_indoor:
+      effect_list:
+      - colorloop
+      - random
+      friendly_name: All indoor
+      is_hue_group: true
+      max_mireds: 500
+      min_mireds: 153
+      state: 'off'
+      supported_features: 63
+    switch.watch_chromecast:
+      friendly_name: Watch Chromecast
+      state: 'on'

@@ -149,9 +149,11 @@ google_assistant:
       expose: true
     lock.front_door_lock:
       expose: true
-    script.1572070274974:
+    scene.nap_living_room:
       expose: true
-      name: Daytime lights
+      name: Nap mode
+      aliases:
+        - NAP
     script.lighting_scene_movie:
       expose: true
       name: Movie lights
